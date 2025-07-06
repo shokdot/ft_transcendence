@@ -1,1 +1,0 @@
-NAME = ft_transcendence
