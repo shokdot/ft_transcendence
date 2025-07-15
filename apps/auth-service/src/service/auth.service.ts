@@ -17,7 +17,8 @@ export async function registerUserService(reply: FastifyReply, data: any) {
 	});
 
 	if (existingUser) {
-		return reply.status(400).send({ error: "Email or username already taken" });
+		throw new Error("Email or username already taken")
+		// return reply.status(400).send({ error: "Email or username already taken" });
 	}
 
 	const passwordHash = await bcrypt.hash(data.password, 10);
@@ -31,14 +32,15 @@ export async function registerUserService(reply: FastifyReply, data: any) {
 		},
 	});
 
-	return reply.status(201).send({
-		user: {
+
+	return (
+		{
 			id: user.id,
 			email: user.email,
 			username: user.username,
-			name: user.name,
+			name: user.name
 		}
-	});
+	)
 }
 
 

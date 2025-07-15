@@ -9,7 +9,9 @@ export async function registerUserHandler(
 ) {
 	try {
 		const body = registerSchema.parse(request.body);
-		await registerUserService(reply, body);
+		const user = await registerUserService(reply, body);
+
+		reply.status(200).send(user);
 
 	} catch (error) {
 		if (error instanceof ZodError) {
