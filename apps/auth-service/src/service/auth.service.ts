@@ -1,66 +1,51 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from '@prisma/client'
-import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient() //common
 
-export async function registerUserService(reply: FastifyReply, data: any) {
+const registerUser = async ({ email, username, password }) => {
+	const existingEmail = await prisma.authUser.findUnique({ where: { email } });
+	if (existingEmail) throw { code: 'EMAIL_EXISTS' };
 
-	const existingUser = await prisma.userAuth.findFirst({
-		where: {
-			OR: [
-				{ email: data.email },
-				{ username: data.username },
-			],
-		},
-	});
+	const existingUsername = await prisma.authUser.findUnique({ where: { username } });
+	if (existingUsername) throw { code: 'USERNAME_EXISTS' };
 
-	if (existingUser) {
-		throw new Error("Email or username already taken")
-		// return reply.status(400).send({ error: "Email or username already taken" });
-	}
+	const passwordHash = await bcrypt.hash(password, 10);
 
-	const passwordHash = await bcrypt.hash(data.password, 10);
-
-	const user = await prisma.userAuth.create({
+	const newUser = await prisma.authUser.create({
 		data: {
-			email: data.email,
-			username: data.username,
-			name: data.name,
+			email,
+			username,
 			passwordHash,
 		},
 	});
 
-
-	return (
-		{
-			id: user.id,
-			email: user.email,
-			username: user.username,
-			name: user.name
-		}
-	)
+	// Don't return the password hash
+	const { passwordHash: _, ...safeUser } = newUser;
+	return safeUser;
 }
 
+// const loginUser = async (data: any) => {
+// 	const user = await prisma.userAuth.findUnique({ where: { email: data.email } });
 
-export async function loginUserService(data: any) {
-	const user = await prisma.userAuth.findUnique({ where: { email: data.email } });
+// 	if (!user) {
+// 		throw new Error('Invalid email or password');
+// 	}
 
-	if (!user) {
-		throw new Error('Invalid email or password');
-	}
+// 	const passwordMatch = await bcrypt.compare(data.password, user.passwordHash);
 
-	const passwordMatch = await bcrypt.compare(data.password, user.passwordHash);
+// 	if (!passwordMatch) {
+// 		throw new Error('Invalid email or password');
+// 	}
 
-	if (!passwordMatch) {
-		throw new Error('Invalid email or password');
-	}
+// 	// Sign JWT
+// 	const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string, {
+// 		expiresIn: '1h'
+// 	});
 
-	// Sign JWT
-	const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET as string, {
-		expiresIn: '1h'
-	});
+// 	return { token, user: { id: user.id, email: user.email, name: user.name } };
+// }
 
-	return { token, user: { id: user.id, email: user.email, name: user.name } };
-}
+
+export default { registerUser }

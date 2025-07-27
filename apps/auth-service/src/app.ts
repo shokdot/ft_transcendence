@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import authRoutes from './routes/auth.js'
+import authRoutes from './routes/auth.routes.js'
 import swagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
 
@@ -8,8 +8,8 @@ const app = Fastify({ logger: true });
 await app.register(swagger, {
 	swagger: {
 		info: {
-			title: 'My Fastify API',
-			description: 'API documentation using Swagger',
+			title: 'ft_transcendence',
+			description: 'Auth Service documentation',
 			version: '1.0.0',
 		},
 		host: 'localhost:3000',

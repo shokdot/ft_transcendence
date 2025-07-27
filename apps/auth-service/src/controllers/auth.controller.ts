@@ -1,38 +1,28 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { registerSchema, LoginSchema } from '../schemas/authUser.js';
-import { registerUserService, loginUserService } from '../service/auth.service.js'
-import { ZodError } from "zod";
+import RegisterBody from '../interfaces/registerBody.js';
+import authService from '../service/auth.service.js'
 
-export async function registerUserHandler(
-	request: FastifyRequest,
-	reply: FastifyReply
-) {
+
+const registerUserHandler = async (request: FastifyRequest<{ Body: RegisterBody }>, reply: FastifyReply) => {
 	try {
-		const body = registerSchema.parse(request.body);
-		const user = await registerUserService(reply, body);
-
-		reply.status(200).send(user);
-
-	} catch (error) {
-		if (error instanceof ZodError) {
-			return reply.status(400).send({ error: error.issues });
+		const user = await authService.registerUser(request.body);
+		return reply.code(200).send(user);
+	} catch (error: any) {
+		if (error.code === 'EMAIL_EXISTS') {
+			return reply.code(400).send({ message: 'Email is already registered' });
 		}
-		return reply.status(500).send({ error: "Internal server error" });
+		if (error.code === 'USERNAME_EXISTS') {
+			return reply.code(400).send({ message: 'Username is already taken' });
+		}
+		console.error('Registration error:', error);
+		return reply.code(500).send({ message: 'Internal server error' });
 	}
 }
 
 
-export async function loginUserHandler(request: FastifyRequest, reply: FastifyReply) {
-	try {
-		const parsed = LoginSchema.parse(request.body);
-		const result = await loginUserService(parsed);
-
-		return reply.code(200).send(result);
-	} catch (error) {
-		if (error instanceof ZodError) {
-			return reply.code(400).send({ error: error.issues });
-		}
-
-		return reply.code(401).send({ error: error.message || 'Login failed' });
-	}
+const loginUserHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+	console.log('here');
 }
+
+
+export default { registerUserHandler, loginUserHandler }
