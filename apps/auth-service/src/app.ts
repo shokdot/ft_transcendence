@@ -31,13 +31,13 @@ await app.register(swaggerUI, {
 })
 
 app.setErrorHandler((error, _, reply: FastifyReply) => {
-	if (error.validation && error.validationContext === 'body') {
+	if (error.validation) {
 		const firstError = error.validation[0];
 		const field = firstError.instancePath?.replace(/^\//, '') || firstError.params?.missingProperty || 'unknown';
 		const message = firstError.message;
 
 		const details = { field, message };
-		return sendError(reply, 400, 'VALIDATION_FAILED', 'Request body validation failed', details);
+		return sendError(reply, 400, 'VALIDATION_FAILED', `Request ${error.validationContext} validation failed`, details);
 	}
 
 	return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', error.message || 'Something went wrong');

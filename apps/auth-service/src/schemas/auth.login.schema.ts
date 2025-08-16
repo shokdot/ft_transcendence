@@ -5,12 +5,13 @@ const loginSchema: RouteShorthandOptions = {
 	{
 		body: {
 			type: 'object',
-			required: ['login', 'password'],
+			required: ['email', 'password'],
 			additionalProperties: false,
 			properties: {
-				login: {
+				email: {
 					type: 'string',
-					description: 'Can be email or username'
+					format: 'email',
+					description: 'Email of user'
 				},
 				password: {
 					type: 'string',
