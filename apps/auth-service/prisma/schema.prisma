@@ -8,11 +8,13 @@ datasource db {
 }
 
 model AuthUser {
-    id              String   @id @default(uuid())
-    email           String   @unique
-    username        String   @unique
-    passwordHash    String
-    isEmailVerified Boolean  @default(false)
-    createdAt       DateTime @default(now())
-    updatedAt       DateTime @updatedAt
+    id               String   @id @default(uuid())
+    email            String   @unique
+    username         String   @unique
+    passwordHash     String
+    isEmailVerified  Boolean  @default(false)
+    twoFactorEnabled Boolean  @default(false)
+    twoFactorSecret  String?
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
 }

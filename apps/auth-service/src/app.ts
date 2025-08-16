@@ -1,7 +1,10 @@
-import Fastify from 'fastify';
-import authRoutes from './routes/auth.routes.js'
+import Fastify, { FastifyReply } from 'fastify';
 import swagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
+import rateLimit from '@fastify/rate-limit';
+import fastifyCookie from '@fastify/cookie';
+import authRoutes from './routes/auth.routes.js'
+import sendError from './utils/sendError.js';
 
 const app = Fastify({ logger: true });
 
@@ -19,7 +22,6 @@ await app.register(swagger, {
 	}
 })
 
-// Swagger UI
 await app.register(swaggerUI, {
 	routePrefix: '/docs',
 	uiConfig: {
@@ -27,6 +29,38 @@ await app.register(swaggerUI, {
 		deepLinking: false
 	},
 })
+
+app.setErrorHandler((error, _, reply: FastifyReply) => {
+	if (error.validation && error.validationContext === 'body') {
+		const firstError = error.validation[0];
+		const field = firstError.instancePath?.replace(/^\//, '') || firstError.params?.missingProperty || 'unknown';
+		const message = firstError.message;
+
+		const details = { field, message };
+		return sendError(reply, 400, 'VALIDATION_FAILED', 'Request body validation failed', details);
+	}
+
+	return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', error.message || 'Something went wrong');
+});
+
+app.register(rateLimit, {
+	max: 5,
+	timeWindow: '1 minute',
+	keyGenerator: (request) => {
+		return request.ip;
+	},
+	errorResponseBuilder: () => ({
+		status: 'error',
+		error: 'TOO_MANY_REQUESTS',
+		message: 'Too many login attempts. Please try again later.'
+	})
+});
+
+
+app.register(fastifyCookie, {
+	secret: process.env.COOKIE_SECRET,
+	parseOptions: {}
+});
 
 await app.register(authRoutes, { prefix: '/api/v1/auth' });
 

@@ -1,16 +1,30 @@
 import jwt from "jsonwebtoken";
+import JwtType from "../types/jwtType.js";
 
-const JWT_SECRET = process.env.JWT_SECRET || "super-secret-dev-key"; // ✅ use env in production
-const JWT_EXPIRES_IN = "7d"; // Token validity duration
+export const signJwt = (payload: object, type: JwtType): string => {
+	let expiresIn: jwt.SignOptions['expiresIn'];
+	let secret: jwt.Secret;
 
-export function signJwt(payload: object): string {
-	return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-}
-
-export function verifyJwt(token: string): any {
-	try {
-		return jwt.verify(token, JWT_SECRET);
-	} catch (err) {
-		return null;
+	switch (type) {
+		case JwtType.ACCESS:
+			// expiresIn = '15m';
+			expiresIn = '7d';
+			secret = process.env.JWT_SECRET;
+			break;
+		case JwtType.REFRESH:
+			expiresIn = '7d';
+			secret = process.env.JWT_REFRESH_SECRET;
+			break;
 	}
-}
+
+	return jwt.sign(payload, secret, { expiresIn });
+};
+
+
+// export function verifyJwt(token: string): any {
+// 	try {
+// 		return jwt.verify(token, JWT_SECRET);
+// 	} catch (err) {
+// 		return null;
+// 	}
+// }
