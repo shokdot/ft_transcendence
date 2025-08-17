@@ -29,10 +29,12 @@ const loginSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'accessToken'],
+						required: ['userId', 'accessToken', 'tokenType', 'expiresIn'],
 						properties: {
 							userId: { type: 'string', format: 'uuid', description: 'User ID' },
 							accessToken: { type: 'string' },
+							tokenType: { type: 'string' },
+							expiresIn: { type: 'number' }
 						}
 					},
 					message: { type: 'string' }

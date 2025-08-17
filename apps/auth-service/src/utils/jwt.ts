@@ -7,8 +7,7 @@ export const signJwt = (payload: object, type: JwtType): string => {
 
 	switch (type) {
 		case JwtType.ACCESS:
-			// expiresIn = '15m';
-			expiresIn = '7d';
+			expiresIn = '15m';
 			secret = process.env.JWT_SECRET;
 			break;
 		case JwtType.REFRESH:
@@ -21,10 +20,21 @@ export const signJwt = (payload: object, type: JwtType): string => {
 };
 
 
-// export function verifyJwt(token: string): any {
-// 	try {
-// 		return jwt.verify(token, JWT_SECRET);
-// 	} catch (err) {
-// 		return null;
-// 	}
-// }
+export function verifyJwt(token: string, type: JwtType): any {
+	try {
+		let secret: jwt.Secret;
+
+		switch (type) {
+			case JwtType.ACCESS:
+				secret = process.env.JWT_SECRET!;
+				break;
+			case JwtType.REFRESH:
+				secret = process.env.JWT_REFRESH_SECRET!;
+				break;
+		}
+
+		return jwt.verify(token, secret);
+	} catch (err) {
+		return null;
+	}
+}

@@ -19,7 +19,9 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, re
 			status: 'success',
 			data: {
 				userId,
-				accessToken
+				accessToken,
+				tokenType: 'Bearer',
+				expiresIn: 900
 			},
 			message: 'Login successful'
 		});
