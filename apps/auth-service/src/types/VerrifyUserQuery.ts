@@ -1,5 +1,5 @@
-interface VerifyUserQuery {
+interface verifyUserQuery {
 	token: string;
 }
 
-export default VerifyUserQuery;
+export default verifyUserQuery;

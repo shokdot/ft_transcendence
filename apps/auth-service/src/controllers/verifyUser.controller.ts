@@ -1,9 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import authService from '../service/auth.service.js'
 import sendError from '../utils/sendError.js';
-import VerifyUserQuery from '../types/VerrifyUserQuery.js';
+import verifyUserQuery from '../types/verrifyUserQuery.js';
 
-const verifyUserHandler = async (request: FastifyRequest<{ Querystring: VerifyUserQuery }>, reply: FastifyReply) => {
+const verifyUserHandler = async (request: FastifyRequest<{ Querystring: verifyUserQuery }>, reply: FastifyReply) => {
 	const { token } = request.query;
 	try {
 		await authService.verifyUser({ token });
