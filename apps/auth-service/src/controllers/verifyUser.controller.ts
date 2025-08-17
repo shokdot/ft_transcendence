@@ -1,9 +1,10 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import authService from '../service/auth.service.js'
 import sendError from '../utils/sendError.js';
+import VerifyUserQuery from '../types/VerrifyUserQuery.js';
 
-const verifyUserHandler = async (request: FastifyRequest, reply: FastifyReply) => {
-	const { token } = request.query as { token: string };
+const verifyUserHandler = async (request: FastifyRequest<{ Querystring: VerifyUserQuery }>, reply: FastifyReply) => {
+	const { token } = request.query;
 	try {
 		await authService.verifyUser({ token });
 		return reply.status(200).send({
