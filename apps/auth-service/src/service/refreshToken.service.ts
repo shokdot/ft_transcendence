@@ -1,8 +1,7 @@
-import crypto from 'crypto';
-import bcrypt from 'bcrypt';
-import { verifyJwt, signJwt } from '../utils/jwt.js';
+import { verifyJwt } from '../utils/jwt.js';
 import JwtType from "../types/jwtType.js";
 import prisma from '../utils/prisma.js';
+import generateJwtTokens from '../utils/generateJwtTokens.js';
 
 const refreshToken = async ({ refreshToken }) => {
 
@@ -28,21 +27,10 @@ const refreshToken = async ({ refreshToken }) => {
 		data: { revoked: true },
 	});
 
-	const accessToken = signJwt({ sub: decoded.sub }, JwtType.ACCESS);
+	const tokens = await generateJwtTokens(userId);
 
-	const newTokenId = crypto.randomUUID();
-	const rawToken = crypto.randomBytes(64).toString('hex');
-	const tokenHash = await bcrypt.hash(rawToken, 10);
-	const expiresAt = new Date();
-	expiresAt.setDate(expiresAt.getDate() + 7);
 
-	await prisma.refreshToken.create({
-		data: { id: newTokenId, userId, tokenHash, expiresAt },
-	});
-
-	const newRefreshToken = signJwt({ sub: userId, tokenId: newTokenId }, JwtType.REFRESH);
-
-	return ({ userId: decoded.sub, accessToken, newRefreshToken });
+	return ({ userId: decoded.sub, ...tokens });
 
 }
 

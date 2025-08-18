@@ -1,8 +1,6 @@
-import prisma from '../utils/prisma.js';
 import bcrypt from 'bcrypt';
-import JwtType from '../types/jwtType.js';
-import crypto from 'crypto';
-import { signJwt } from '../utils/jwt.js';
+import prisma from '../utils/prisma.js';
+import generateJwtTokens from '../utils/generateJwtTokens.js';
 
 const loginUser = async ({ email, password }) => {
 	email = email.trim().toLowerCase();
@@ -18,26 +16,9 @@ const loginUser = async ({ email, password }) => {
 	const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
 	if (!isPasswordValid) throw { code: 'INVALID_CREDENTIALS' }
 
-	const tokenId = crypto.randomUUID();
-	const rawToken = crypto.randomBytes(64).toString('hex');
-	const tokenHash = await bcrypt.hash(rawToken, 10);
+	const tokens = await generateJwtTokens(user.id);
 
-	const expiresAt = new Date();
-	expiresAt.setDate(expiresAt.getDate() + 7);
-
-	await prisma.refreshToken.create({
-		data: {
-			id: tokenId,
-			userId: user.id,
-			tokenHash,
-			expiresAt,
-		},
-	});
-
-	const accessToken = signJwt({ sub: user.id }, JwtType.ACCESS);
-	const refreshToken = signJwt({ sub: user.id, tokenId }, JwtType.REFRESH);
-
-	return { userId: user.id, accessToken, refreshToken };
+	return { userId: user.id, ...tokens };
 };
 
 export default loginUser;
