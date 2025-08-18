@@ -3,6 +3,8 @@ import { RouteShorthandOptions } from "fastify";
 const loginSchema: RouteShorthandOptions = {
 	schema:
 	{
+		description: "Login user with email and password",
+		tags: ["auth"],
 		body: {
 			type: 'object',
 			required: ['email', 'password'],

@@ -5,6 +5,8 @@ const getCurrentUserSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
+		description: "Get information about current user",
+		tags: ["auth"],
 		response: {
 			200: {
 				type: 'object',

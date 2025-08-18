@@ -2,6 +2,8 @@ import { RouteShorthandOptions } from "fastify";
 
 const verifyEmailSchema: RouteShorthandOptions = {
 	schema: {
+		description: "Email verifying via queryparam 'token'",
+		tags: ["auth"],
 		querystring: {
 			type: 'object',
 			properties: {
