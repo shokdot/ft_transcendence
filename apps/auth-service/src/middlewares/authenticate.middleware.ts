@@ -24,7 +24,6 @@ const authenticate = async (request: UserRequest, reply: FastifyReply) => {
 		request.userId = sub;
 
 	} catch (error: any) {
-		console.log(error);
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
