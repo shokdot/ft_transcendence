@@ -5,9 +5,18 @@ import sendError from '../utils/sendError.js';
 
 const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, reply: FastifyReply) => {
 	try {
-		const { userId, accessToken, refreshToken } = await authService.loginUser(request.body);
 
-		reply.setCookie('refreshToken', refreshToken, {
+		const result: any = await authService.loginUser(request.body);
+
+		if ('twoFactorRequired' in result && result.twoFactorRequired) {
+			return reply.status(200).send({
+				status: 'pending',
+				data: result,
+				message: 'Two-factor authentication required',
+			});
+		}
+
+		reply.setCookie('refreshToken', result.refreshToken, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'production',
 			path: '/refresh',
@@ -18,13 +27,15 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, re
 		return reply.status(200).send({
 			status: 'success',
 			data: {
-				userId,
-				accessToken,
+				userId: result.userId,
+				accessToken: result.accessToken,
 				tokenType: 'Bearer',
-				expiresIn: 900
+				expiresIn: 900,
 			},
-			message: 'Login successful'
+			message: 'Login successful',
 		});
+
+
 	} catch (error: any) {
 		if (error.code === 'INVALID_CREDENTIALS' || error.code === 'NOT_REGISTERED') {
 			return sendError(reply, 401, error.code, 'Invalid email or password', { field: "login/password" })
@@ -32,6 +43,7 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, re
 		if (error.code == 'EMAIL_NOT_VERIFIED') {
 			return sendError(reply, 403, error.code, 'Email address not verfied', { field: 'email' });
 		}
+
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 }

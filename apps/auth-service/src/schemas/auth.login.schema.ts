@@ -24,23 +24,47 @@ const loginSchema: RouteShorthandOptions = {
 		},
 		response: {
 			200: {
-				type: 'object',
-				required: ['status', 'data', 'message'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['success'] },
-					data: {
+				oneOf: [
+					{
 						type: 'object',
-						required: ['userId', 'accessToken', 'tokenType', 'expiresIn'],
+						additionalProperties: false,
+						required: ['status', 'data', 'message'],
 						properties: {
-							userId: { type: 'string', format: 'uuid', description: 'User ID' },
-							accessToken: { type: 'string' },
-							tokenType: { type: 'string' },
-							expiresIn: { type: 'number' }
+							status: { type: 'string', enum: ['success'] },
+							data: {
+								type: 'object',
+								required: ['userId', 'accessToken', 'tokenType', 'expiresIn'],
+								additionalProperties: false,
+								properties: {
+									userId: { type: 'string', format: 'uuid', description: 'User ID' },
+									accessToken: { type: 'string' },
+									tokenType: { type: 'string' },
+									expiresIn: { type: 'number' },
+								}
+							},
+							message: { type: 'string' },
 						}
 					},
-					message: { type: 'string' }
-				},
+					{
+						type: 'object',
+						additionalProperties: false,
+						required: ['status', 'data', 'message'],
+						properties: {
+							status: { type: 'string', enum: ['pending'] },
+							data: {
+								type: 'object',
+								required: ['userId', 'twoFactorRequired', 'twoFaToken'],
+								additionalProperties: false,
+								properties: {
+									userId: { type: 'string', format: 'uuid', description: 'User ID' },
+									twoFactorRequired: { type: 'boolean' },
+									twoFaToken: { type: 'string' },
+								}
+							},
+							message: { type: 'string' },
+						}
+					}
+				]
 			},
 			400: {
 				type: 'object',

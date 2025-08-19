@@ -21,6 +21,8 @@
 		"fastify": "^5.4.0",
 		"jsonwebtoken": "^9.0.2",
 		"nodemailer": "^7.0.5",
+		"qrcode": "^1.5.4",
+		"speakeasy": "^2.0.0",
 		"zxcvbn": "^4.4.2"
 	},
 	"devDependencies": {
@@ -28,6 +30,8 @@
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/node": "^24.0.12",
 		"@types/nodemailer": "^7.0.0",
+		"@types/qrcode": "^1.5.5",
+		"@types/speakeasy": "^2.0.10",
 		"@types/zxcvbn": "^4.4.5",
 		"prisma": "^6.14.0",
 		"ts-node": "^10.9.2",
