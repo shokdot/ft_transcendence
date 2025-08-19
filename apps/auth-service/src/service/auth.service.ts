@@ -4,6 +4,7 @@ import verifyUser from './verifyUser.service.js';
 import refreshToken from './refreshToken.service.js';
 import getCurrentUser from './getCurrentUser.service.js';
 import twoFaSetup from './twoFaSetup.service.js';
+import twoFaDisable from './twoFaDisable.service.js';
 
 export default {
 	registerUser,
@@ -11,7 +12,8 @@ export default {
 	verifyUser,
 	refreshToken,
 	getCurrentUser,
-	twoFaSetup
+	twoFaSetup,
+	twoFaDisable
 };
 
 

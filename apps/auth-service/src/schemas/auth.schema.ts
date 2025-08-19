@@ -7,6 +7,7 @@ import logutUserSchema from "./auth.logout.schema.js";
 import twoFaSetupSchema from "./auth.twoFaSetup.schema.js"
 import twoFaConfirmSchema from "./auth.twoFaConfirm.schema.js";
 import twoFaVerifySchema from "./auth.twoFaVerify.schema.js";
+import twoFaDisableSchema from "./auth.twoFaDisable.schema.js";
 
 export default {
 	registerSchema,
@@ -17,5 +18,6 @@ export default {
 	logutUserSchema,
 	twoFaSetupSchema,
 	twoFaConfirmSchema,
-	twoFaVerifySchema
+	twoFaVerifySchema,
+	twoFaDisableSchema
 };

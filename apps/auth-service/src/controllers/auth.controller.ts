@@ -7,6 +7,7 @@ import logoutUserHandler from './logoutUser.controller.js';
 import twoFaSetupHandler from './twoFaSetup.controller.js';
 import twoFaConfirmHandler from './twoFaConfirm.controller.js';
 import twoFaVerifyHandler from './twoFaVerify.controller.js';
+import twoFaDisableHandler from './twoFaDisable.controller.js';
 
 export default {
 	registerUserHandler,
@@ -17,5 +18,6 @@ export default {
 	logoutUserHandler,
 	twoFaSetupHandler,
 	twoFaConfirmHandler,
-	twoFaVerifyHandler
+	twoFaVerifyHandler,
+	twoFaDisableHandler
 }

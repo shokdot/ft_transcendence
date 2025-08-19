@@ -12,4 +12,5 @@ export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.post('/2fa/setup', authSchema.twoFaSetupSchema, authController.twoFaSetupHandler);
 	app.post('/2fa/confirm', authSchema.twoFaConfirmSchema, authController.twoFaConfirmHandler);
 	app.post('/2fa/verify', authSchema.twoFaVerifySchema, authController.twoFaVerifyHandler);
+	app.delete('/2fa/disable', authSchema.twoFaDisableSchema, authController.twoFaDisableHandler);
 }
