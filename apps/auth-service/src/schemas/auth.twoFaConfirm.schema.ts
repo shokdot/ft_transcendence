@@ -7,6 +7,16 @@ const twoFaConfirmSchema: RouteShorthandOptions = {
 	{
 		description: "Confirmation 2FA authentication. Required authentication token",
 		tags: ["2FA"],
+		body: {
+			type: 'object',
+			required: ['token'],
+			additionalProperties: false,
+			properties: {
+				token: {
+					type: 'string',
+				}
+			},
+		},
 		response: {
 			200: {
 				type: 'object',

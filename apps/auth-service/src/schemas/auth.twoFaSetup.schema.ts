@@ -16,10 +16,11 @@ const twoFaSetupSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId'],
+						required: ['userId', 'qrCodeDataURL'],
 						additionalProperties: false,
 						properties: {
-							userId: { type: 'string' }
+							userId: { type: 'string' },
+							qrCodeDataURL: { type: 'string' }
 						}
 					},
 					message: { type: 'string' }
