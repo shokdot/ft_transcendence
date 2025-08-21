@@ -16,6 +16,10 @@ const twoFaSetupHandler = async (request: UserRequest, reply: FastifyReply) => {
 
 	} catch (error) {
 
+		if (error.code === 'OAUTH_USER') {
+			return sendError(reply, 400, error.code, '2FA cannot be activated for OAuth users.');
+
+		}
 		if (error.code === 'USER_NOT_FOUND') {
 			return sendError(reply, 404, error.code, 'The requested user does not exist.');
 		}

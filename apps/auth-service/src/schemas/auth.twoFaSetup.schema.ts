@@ -26,6 +26,24 @@ const twoFaSetupSchema: RouteShorthandOptions = {
 					message: { type: 'string' }
 				},
 			},
+			400: {
+				type: 'object',
+				required: ['status', 'error'],
+				additionalProperties: false,
+				properties: {
+					status: { type: 'string', enum: ['error'] },
+					error: {
+						type: 'object',
+						required: ['code', 'message', 'details'],
+						properties: {
+							code: { type: 'string' },
+							message: { type: 'string' },
+							details: { type: ['object', 'null'], additionalProperties: true, },
+						},
+						additionalProperties: false,
+					},
+				},
+			},
 			404: {
 				type: 'object',
 				required: ['status', 'error'],

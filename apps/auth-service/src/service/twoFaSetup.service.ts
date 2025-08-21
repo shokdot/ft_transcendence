@@ -8,6 +8,8 @@ const twoFaSetup = async ({ userId }) => {
 
 	if (!user) throw ({ code: 'USER_NOT_FOUND' });
 
+	if (!user.passwordHash) throw { code: 'OAUTH_USER' }
+
 	const secret = speakeasy.generateSecret({
 		name: `ft_transcendense (${user.username})`
 	});
