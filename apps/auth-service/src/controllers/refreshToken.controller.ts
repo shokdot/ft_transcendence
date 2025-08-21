@@ -6,7 +6,7 @@ const refreshToken = async (request: FastifyRequest, reply: FastifyReply) => {
 	try {
 		const refreshToken = request.cookies?.refreshToken;
 
-		const { userId, accessToken, newRefreshToken } = await authService.refreshToken({ refreshToken });
+		const { userId, accessToken, refreshToken: newRefreshToken } = await authService.refreshToken({ refreshToken });
 
 		reply.setCookie('refreshToken', newRefreshToken, {
 			httpOnly: true,
