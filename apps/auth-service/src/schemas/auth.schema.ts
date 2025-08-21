@@ -8,6 +8,7 @@ import twoFaSetupSchema from "./auth.twoFaSetup.schema.js"
 import twoFaConfirmSchema from "./auth.twoFaConfirm.schema.js";
 import twoFaVerifySchema from "./auth.twoFaVerify.schema.js";
 import twoFaDisableSchema from "./auth.twoFaDisable.schema.js";
+import oauthLoginSchema from "./auth.oauthLogin.schema.js"
 
 export default {
 	registerSchema,
@@ -19,5 +20,6 @@ export default {
 	twoFaSetupSchema,
 	twoFaConfirmSchema,
 	twoFaVerifySchema,
-	twoFaDisableSchema
+	twoFaDisableSchema,
+	oauthLoginSchema
 };
