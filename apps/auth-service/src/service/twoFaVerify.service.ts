@@ -1,8 +1,8 @@
-import JwtType from "../types/jwtType.js";
-import generateJwtTokens from "../utils/generateJwtTokens.js";
-import { verifyJwt } from "../utils/jwt.js";
-import prisma from "../utils/prisma.js";
 import speakeasy from 'speakeasy';
+import prisma from "../utils/prismaClient.js";
+import JwtType from '@core/types/jwtType.js';
+import generateJwtTokens from "../utils/generateJwtTokens.js";
+import { verifyJwt } from '@core/utils/jwt.js';
 
 const twoFaVerify = async ({ token, session_token }) => {
 	if (!token || !session_token)

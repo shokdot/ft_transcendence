@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import authService from '../service/auth.service.js'
-import sendError from '../utils/sendError.js';
+import sendError from '@core/utils/sendError.js';
 
 const refreshToken = async (request: FastifyRequest, reply: FastifyReply) => {
 	try {

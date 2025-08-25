@@ -10,13 +10,13 @@ const authenticate = async (request: UserRequest, reply: FastifyReply) => {
 		if (!authHeader || !authHeader.startsWith('Bearer ')) {
 			return sendError(reply, 401, 'ACCESS_TOKEN_MISSING', 'Authorization token is missing');
 		}
-
 		const token = authHeader.split(' ')[1];
 		if (!token) {
 			return sendError(reply, 401, 'ACCESS_TOKEN_MISSING', 'Authorization token is missing');
 		}
 
 		const decoded = verifyJwt(token, JwtType.ACCESS);
+		console.log(decoded);
 		if (!decoded)
 			return sendError(reply, 403, 'INVALID_ACCESS_TOKEN', 'Invalid or expired access token');
 

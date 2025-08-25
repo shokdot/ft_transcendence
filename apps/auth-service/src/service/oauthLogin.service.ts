@@ -1,5 +1,5 @@
 import axios from 'axios';
-import prisma from '../utils/prisma.js';
+import prisma from "../utils/prismaClient.js";
 import generateJwtTokens from '../utils/generateJwtTokens.js';
 
 const oauthLogin = (githubOAuth2: any) => {

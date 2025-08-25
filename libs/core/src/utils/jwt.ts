@@ -8,15 +8,15 @@ export const signJwt = (payload: object, type: JwtType): string => {
 	switch (type) {
 		case JwtType.ACCESS:
 			expiresIn = '15m';
-			secret = process.env.JWT_SECRET;
+			secret = process.env.JWT_SECRET!;
 			break;
 		case JwtType.REFRESH:
 			expiresIn = '7d';
-			secret = process.env.JWT_REFRESH_SECRET;
+			secret = process.env.JWT_REFRESH_SECRET!;
 			break;
 		case JwtType.TWO_FA:
 			expiresIn = '5m';
-			secret = process.env.JWT_TWO_FA
+			secret = process.env.JWT_TWO_FA!;
 			break;
 	}
 
@@ -28,6 +28,8 @@ export function verifyJwt(token: string, type: JwtType): any {
 	try {
 		let secret: jwt.Secret;
 
+		console.log(process.env.JWT_SECRET);
+
 		switch (type) {
 			case JwtType.ACCESS:
 				secret = process.env.JWT_SECRET!;
@@ -36,7 +38,7 @@ export function verifyJwt(token: string, type: JwtType): any {
 				secret = process.env.JWT_REFRESH_SECRET!;
 				break;
 			case JwtType.TWO_FA:
-				secret = process.env.JWT_TWO_FA
+				secret = process.env.JWT_TWO_FA!;
 				break;
 		}
 

@@ -1,6 +1,6 @@
 import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
-import prisma from '../utils/prisma.js';
+import prisma from "../utils/prismaClient.js";
 
 const twoFaSetup = async ({ userId }) => {
 

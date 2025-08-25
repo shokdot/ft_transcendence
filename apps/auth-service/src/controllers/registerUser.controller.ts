@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import RegisterBody from '../types/registerBody.js';
 import authService from '../service/auth.service.js'
-import sendError from '../utils/sendError.js';
+import sendError from '@core/utils/sendError.js';
 
 const registerUserHandler = async (request: FastifyRequest<{ Body: RegisterBody }>, reply: FastifyReply) => {
 	try {

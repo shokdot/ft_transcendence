@@ -1,7 +1,7 @@
 import { FastifyReply } from 'fastify'
-import sendError from '../utils/sendError.js';
+import sendError from '@core/utils/sendError.js';
 import authService from '../service/auth.service.js';
-import { UserRequest } from '../types/userRequest.js';
+import { UserRequest } from '@core/types/userRequest.js';
 
 const twoFaDisableHandler = async (request: UserRequest, reply: FastifyReply) => {
 	try {

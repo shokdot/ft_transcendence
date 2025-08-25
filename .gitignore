@@ -9,10 +9,10 @@ npm-debug.log*
 .env.*.local
 
 # Prisma
-prisma/migrations/
+**/prisma/migrations/
 prisma/dev.db
 prisma/.DS_Store
-prisma/client/
+**/prisma/client/
 
 # Build output
 dist/
@@ -40,3 +40,5 @@ Thumbs.db
 *.db
 
 *package-lock.json
+
+tsconfig.tsbuildinfo

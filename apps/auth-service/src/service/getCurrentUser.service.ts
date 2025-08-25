@@ -1,4 +1,4 @@
-import prisma from "../utils/prisma.js";
+import prisma from "../utils/prismaClient.js";
 
 const getCurrentUser = async ({ userId }) => {
 	const user = await prisma.authUser.findUnique({

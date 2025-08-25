@@ -1,13 +1,15 @@
 {
-  "name": "user_service",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+	"name": "user-service",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"build": "tsc -b",
+		"dev": "tsx -r dotenv/config src/server.ts --watch"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/node": "^24.3.0",
+		"tsx": "^4.20.3",
+		"typescript": "^5.8.3"
+	}
 }

@@ -1,8 +1,8 @@
 import { FastifyReply } from "fastify";
-import sendError from '../utils/sendError.js';
+import { UserRequest } from '@core/types/userRequest.js';
+import sendError from '@core/utils/sendError.js';
 import twoFaBody from "../types/twoFaBody.js";
 import twoFaConfirm from "../service/twoFaConfirm.service.js";
-import { UserRequest } from "../types/userRequest.js";
 
 const twoFaConfirmHandler = async (request: UserRequest<twoFaBody>, reply: FastifyReply) => {
 	try {

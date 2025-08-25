@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+import sendError from '@core/utils/sendError.js';
 import authService from "../service/auth.service.js";
-import sendError from "../utils/sendError.js";
 
 declare module "fastify" {
 	interface FastifyInstance {

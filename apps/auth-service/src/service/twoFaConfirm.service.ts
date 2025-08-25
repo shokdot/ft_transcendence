@@ -1,4 +1,4 @@
-import prisma from "../utils/prisma.js";
+import prisma from "../utils/prismaClient.js";
 import speakeasy from 'speakeasy';
 
 const twoFaConfirm = async ({ token, userId }) => {

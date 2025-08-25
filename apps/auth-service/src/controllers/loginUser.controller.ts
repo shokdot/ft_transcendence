@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import LoginBody from '../types/loginBody.js';
 import authService from '../service/auth.service.js'
-import sendError from '../utils/sendError.js';
+import sendError from '@core/utils/sendError.js';
 
 const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, reply: FastifyReply) => {
 	try {
@@ -43,6 +43,10 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: LoginBody }>, re
 		if (error.code == 'EMAIL_NOT_VERIFIED') {
 			return sendError(reply, 403, error.code, 'Email address not verfied', { field: 'email' });
 		}
+
+		console.log("smth happendç")
+		console.log(error);
+
 
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}

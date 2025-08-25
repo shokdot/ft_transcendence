@@ -1,6 +1,6 @@
-import JwtType from "../types/jwtType.js";
-import { verifyJwt } from "../utils/jwt.js";
-import prisma from "../utils/prisma.js";
+import JwtType from '@core/types/jwtType.js';
+import prisma from "../utils/prismaClient.js";
+import { verifyJwt } from '@core/utils/jwt.js';
 
 const logoutUser = async ({ refreshToken }) => {
 	if (!refreshToken)

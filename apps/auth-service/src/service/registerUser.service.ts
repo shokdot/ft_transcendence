@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import zxcvbn from 'zxcvbn';
 import crypto from 'crypto';
-import prisma from '../utils/prisma.js';
-import { sendVerificationEmail } from '../utils/email.js';
+import prisma from "../utils/prismaClient.js";
+import { sendVerificationEmail } from 'src/utils/email.js';
+import axios from 'axios';
 
 const registerUser = async ({ email, username, password }) => {
 
@@ -32,7 +33,17 @@ const registerUser = async ({ email, username, password }) => {
 		},
 	});
 
-	// await sendVerificationEmail(email, verificationToken, username);
+	// await sendVerificationEmail(email, verificationToken, username); //enable in prod
+
+	const result = await axios.post('http://127.0.0.1:3001/api/v1/users', {
+		'userId': newUser.id,
+		username
+	});
+
+	if (result.status !== 200) {
+		await prisma.authUser.delete({ where: { id: newUser.id } });
+		throw { code: 'USER_SERVICE_ERR' };
+	}
 
 	const { passwordHash: _, ...safeUser } = newUser;
 	return safeUser;
