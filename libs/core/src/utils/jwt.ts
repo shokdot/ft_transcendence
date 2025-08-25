@@ -28,8 +28,6 @@ export function verifyJwt(token: string, type: JwtType): any {
 	try {
 		let secret: jwt.Secret;
 
-		console.log(process.env.JWT_SECRET);
-
 		switch (type) {
 			case JwtType.ACCESS:
 				secret = process.env.JWT_SECRET!;

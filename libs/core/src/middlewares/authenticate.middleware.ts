@@ -16,7 +16,6 @@ const authenticate = async (request: UserRequest, reply: FastifyReply) => {
 		}
 
 		const decoded = verifyJwt(token, JwtType.ACCESS);
-		console.log(decoded);
 		if (!decoded)
 			return sendError(reply, 403, 'INVALID_ACCESS_TOKEN', 'Invalid or expired access token');
 
