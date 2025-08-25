@@ -42,7 +42,8 @@ const registerUser = async ({ email, username, password }) => {
 
 	if (result.status !== 200) {
 		await prisma.authUser.delete({ where: { id: newUser.id } });
-		throw { code: 'USER_SERVICE_ERR' };
+		if (result.status === 409) throw { code: 'USERNAME_EXISTS' };
+		else throw { code: 'USER_SERVICE_ERR' };
 	}
 
 	const { passwordHash: _, ...safeUser } = newUser;

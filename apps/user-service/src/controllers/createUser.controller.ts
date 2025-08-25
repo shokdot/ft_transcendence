@@ -13,6 +13,10 @@ const createUserHandler = async (request: FastifyRequest, reply: FastifyReply) =
 		});
 
 	} catch (error) {
+		if (error.code === 'USERNAME_EXISTS') {
+			return sendError(reply, 409, error.code, 'Username is already taken', { field: 'username' })
+		}
+
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 

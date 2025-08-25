@@ -2,7 +2,11 @@ import prisma from "../utils/prismaClient.js";
 import getAvatarUrl from "../utils/avatar.js";
 
 const createUser = async (userId: string, username: string) => {
-	const user = await prisma.userProfile.create({
+
+	const existingUsername = await prisma.userProfile.findUnique({ where: { username } });
+	if (existingUsername) throw { code: 'USERNAME_EXISTS' };
+
+	await prisma.userProfile.create({
 		data: {
 			userId,
 			username,
