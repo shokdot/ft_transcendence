@@ -1,9 +1,9 @@
-generator client {
+generator userClient {
     provider = "prisma-client-js"
-    output   = "./client"
+    output   = "./generated/client"
 }
 
-datasource db {
+datasource userDb {
     provider = "sqlite"
     url      = env("DATABASE_URL")
 }

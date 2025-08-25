@@ -12,7 +12,7 @@ npm-debug.log*
 **/prisma/migrations/
 prisma/dev.db
 prisma/.DS_Store
-**/prisma/client/
+**/prisma/generated/
 
 # Build output
 dist/

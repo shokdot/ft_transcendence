@@ -1,9 +1,9 @@
-generator client {
+generator authClient {
     provider = "prisma-client-js"
-    output   = "./client"
+    output   = "./generated/client"
 }
 
-datasource db {
+datasource authDb {
     provider = "sqlite"
     url      = env("DATABASE_URL")
 }

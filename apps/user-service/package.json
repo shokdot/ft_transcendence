@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsc -b",
-		"dev": "tsx -r dotenv/config src/server.ts --watch"
+		"dev": "tsx watch src/server.ts"
 	},
 	"dependencies": {},
 	"devDependencies": {
