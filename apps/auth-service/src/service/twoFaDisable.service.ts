@@ -1,4 +1,4 @@
-import prisma from "../utils/prismaClient.js";
+import prisma from "src/utils/prismaClient.js";
 
 const twoFaDisable = async ({ userId }) => {
 

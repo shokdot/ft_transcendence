@@ -3,8 +3,8 @@ import swagger from '@fastify/swagger'
 import swaggerUI from '@fastify/swagger-ui'
 import rateLimit from '@fastify/rate-limit';
 import fastifyCookie from '@fastify/cookie';
-import authRoutes from './routes/auth.routes.js'
 import sendError from '@core/utils/sendError.js';
+import authRoutes from './routes/auth.routes.js'
 
 const app = Fastify({ logger: true });
 

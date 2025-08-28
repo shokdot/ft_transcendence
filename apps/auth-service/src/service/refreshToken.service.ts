@@ -1,7 +1,7 @@
 import { verifyJwt } from '@core/utils/jwt.js';
 import JwtType from '@core/types/jwtType.js';
-import prisma from "../utils/prismaClient.js";
-import generateJwtTokens from '../utils/generateJwtTokens.js';
+import prisma from "src/utils/prismaClient.js";
+import generateJwtTokens from 'src/utils/generateJwtTokens.js';
 
 const refreshToken = async ({ refreshToken }) => {
 

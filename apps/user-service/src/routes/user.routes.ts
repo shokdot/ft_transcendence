@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
-import usersController from "../controllers/users.controller.js";
-import userSchema from '../schemas/auth.schema.js'
+import usersController from "src/controllers/users.controller.js";
+import userSchema from 'src/schemas/auth.schema.js'
 
 export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.post('/', userSchema.createUserSchema, usersController.createUserHandler);

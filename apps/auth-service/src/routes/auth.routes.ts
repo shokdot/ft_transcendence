@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
-import authController from "../controllers/auth.controller.js";
-import authSchema from "../schemas/auth.schema.js";
 import fastifyOauth2 from "@fastify/oauth2";
+import authController from "src/controllers/auth.controller.js";
+import authSchema from "src/schemas/auth.schema.js";
 
 export default async function userRoutes(app: FastifyInstance): Promise<void> {
 

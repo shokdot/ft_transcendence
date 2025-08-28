@@ -1,6 +1,6 @@
 import axios from 'axios';
-import prisma from "../utils/prismaClient.js";
-import generateJwtTokens from '../utils/generateJwtTokens.js';
+import prisma from "src/utils/prismaClient.js";
+import generateJwtTokens from 'src/utils/generateJwtTokens.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const oauthLogin = (githubOAuth2: any) => {

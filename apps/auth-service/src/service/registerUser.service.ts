@@ -1,9 +1,9 @@
+import axios from 'axios';
 import bcrypt from 'bcrypt';
 import zxcvbn from 'zxcvbn';
 import crypto from 'crypto';
-import prisma from "../utils/prismaClient.js";
+import prisma from "src/utils/prismaClient.js";
 import { sendVerificationEmail } from 'src/utils/email.js';
-import axios from 'axios';
 
 const registerUser = async ({ email, username, password }) => {
 

@@ -1,5 +1,5 @@
-import prisma from "../utils/prismaClient.js";
-import getAvatarUrl from "../utils/avatar.js";
+import prisma from "src/utils/prismaClient.js";
+import getAvatarUrl from "src/utils/avatar.js";
 
 const createUser = async (userId: string, username: string) => {
 

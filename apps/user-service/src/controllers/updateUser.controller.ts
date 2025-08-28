@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { UserRequest } from '@core/types/userRequest.js';
-import userService from '../services/users.service.js';
+import userService from 'src/services/users.service.js';
 import sendError from "@core/utils/sendError.js";
 import { updateUserDto } from "src/dto/updateUser.dto.js";
 

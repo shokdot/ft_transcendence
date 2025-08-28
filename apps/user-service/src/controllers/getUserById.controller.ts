@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import sendError from "@core/utils/sendError.js";
-import userService from '../services/users.service.js';
-import { userByIdParamDto } from "../dto/userByIdParam.dto.js";
+import userService from 'src/services/users.service.js';
+import { userByIdParamDto } from "src/dto/userByIdParam.dto.js";
 
 const getUserByIdHandler = async (request: FastifyRequest<{ Params: userByIdParamDto }>, reply: FastifyReply) => {
 	try {
