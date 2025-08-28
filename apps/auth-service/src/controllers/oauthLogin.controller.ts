@@ -45,6 +45,10 @@ const oauthLoginHandler = () => {
 			if (error.code === 'NO_VERIFIED_EMAIL') {
 				return sendError(reply, 400, error.code, 'No verified primary email found in GitHub account.')
 			}
+			if (error.code === 'USER_SERVICE_ERROR') {
+				return sendError(reply, 503, error.coded, 'Failed to communicate with user service.')
+			}
+
 			return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 
 		}

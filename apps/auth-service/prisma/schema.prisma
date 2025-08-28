@@ -11,7 +11,6 @@ datasource authDb {
 model AuthUser {
     id                String         @id @default(uuid())
     email             String         @unique
-    username          String         @unique
     passwordHash      String
     isEmailVerified   Boolean        @default(false)
     verificationToken String?

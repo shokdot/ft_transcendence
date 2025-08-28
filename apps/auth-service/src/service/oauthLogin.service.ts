@@ -1,6 +1,7 @@
 import axios from 'axios';
 import prisma from "../utils/prismaClient.js";
 import generateJwtTokens from '../utils/generateJwtTokens.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const oauthLogin = (githubOAuth2: any) => {
 	return {
@@ -33,11 +34,18 @@ const oauthLogin = (githubOAuth2: any) => {
 				user = await prisma.authUser.create({
 					data: {
 						email: primaryEmail,
-						username: profile.data.login,
 						passwordHash: '',
 						isEmailVerified: true,
 					},
 				});
+
+				const username = `user${uuidv4().slice(0, 8)}`;
+				const result = await axios.post('http://127.0.0.1:3001/api/v1/users', {
+					'userId': user.id,
+					username
+				});
+
+				if (result.status !== 201) throw { code: 'USER_SERVICE_ERROR' };
 			}
 
 			const tokens = await generateJwtTokens(user.id);
@@ -46,6 +54,5 @@ const oauthLogin = (githubOAuth2: any) => {
 		},
 	};
 }
-
 
 export default oauthLogin;

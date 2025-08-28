@@ -11,7 +11,7 @@ const twoFaSetup = async ({ userId }) => {
 	if (!user.passwordHash) throw { code: 'OAUTH_USER' }
 
 	const secret = speakeasy.generateSecret({
-		name: `ft_transcendense (${user.username})`
+		name: `ft_transcendense (${user.email})`
 	});
 
 	await prisma.authUser.update({

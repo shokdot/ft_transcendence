@@ -13,9 +13,6 @@ const registerUser = async ({ email, username, password }) => {
 	const existingEmail = await prisma.authUser.findUnique({ where: { email } });
 	if (existingEmail) throw { code: 'EMAIL_EXISTS' };
 
-	const existingUsername = await prisma.authUser.findUnique({ where: { username } });
-	if (existingUsername) throw { code: 'USERNAME_EXISTS' };
-
 	const passStrength = zxcvbn(password);
 	if (passStrength.score < 3) throw { code: 'WEAK_PASSWORD' }
 
@@ -26,28 +23,28 @@ const registerUser = async ({ email, username, password }) => {
 	const newUser = await prisma.authUser.create({
 		data: {
 			email,
-			username,
 			passwordHash,
 			verificationToken,
 			isEmailVerified: true,
 		},
 	});
 
-	// await sendVerificationEmail(email, verificationToken, username); //enable in prod
-
 	const result = await axios.post('http://127.0.0.1:3001/api/v1/users', {
 		'userId': newUser.id,
 		username
 	});
 
-	if (result.status !== 200) {
+	if (result.status !== 201) {
 		await prisma.authUser.delete({ where: { id: newUser.id } });
 		if (result.status === 409) throw { code: 'USERNAME_EXISTS' };
-		else throw { code: 'USER_SERVICE_ERR' };
+		else throw { code: 'USER_SERVICE_ERROR' };
 	}
 
+	// await sendVerificationEmail(email, verificationToken, username); //enable in prod
+
 	const { passwordHash: _, ...safeUser } = newUser;
-	return safeUser;
+
+	return { ...safeUser, username };
 }
 
 export default registerUser;

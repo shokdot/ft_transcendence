@@ -6,7 +6,6 @@ const getCurrentUser = async ({ userId }) => {
 		select: {
 			id: true,
 			email: true,
-			username: true,
 			isEmailVerified: true,
 			createdAt: true,
 			updatedAt: true
