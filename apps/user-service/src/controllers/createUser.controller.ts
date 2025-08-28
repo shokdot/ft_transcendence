@@ -1,13 +1,14 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import userService from '../services/users.service.js';
+import { createUserDto } from 'src/dto/createUser.dto.js';
+import userService from 'src/services/users.service.js';
 import sendError from '@core/utils/sendError.js';
 
-const createUserHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+const createUserHandler = async (request: FastifyRequest<{ Body: createUserDto }>, reply: FastifyReply) => {
 	try {
-		const { userId, username } = request.body as { userId: string, username: string };
+		const { userId, username } = request.body;
 		await userService.createUser(userId, username);
 
-		reply.status(200).send({
+		reply.status(201).send({
 			status: 'success',
 			message: 'User created successfully.'
 		});

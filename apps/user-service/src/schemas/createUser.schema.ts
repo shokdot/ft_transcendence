@@ -3,7 +3,7 @@ import { RouteShorthandOptions } from "fastify";
 const createUserSchema: RouteShorthandOptions = {
 	schema:
 	{
-		description: "Create user calls from auth-service dont call it manually use auth-service register instead",
+		description: "Create user. Calls from auth-service dont call it manually use auth-service register instead",
 		tags: ["user"],
 		body: {
 			type: 'object',
@@ -23,7 +23,7 @@ const createUserSchema: RouteShorthandOptions = {
 			},
 		},
 		response: {
-			200: {
+			201: {
 				type: 'object',
 				required: ['status', 'message'],
 				additionalProperties: false,
