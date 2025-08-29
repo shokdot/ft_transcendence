@@ -1,20 +1,18 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js'
 
-const updateUserSchema: RouteShorthandOptions = {
+const getUserStatusSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
-		description: "Update current user information (username, avatarUrl, preferences, metadata)",
-		tags: ["user"],
-		body: {
+		description: "Get user status by userId",
+		tags: ["Status"],
+		params: {
 			type: "object",
+			required: ["userId"],
 			properties: {
-				username: { type: "string" },
-				avatarUrl: { type: "string" },
-			},
-			additionalProperties: false,
-			minProperties: 1,
+				userId: { type: "string", format: "uuid" }
+			}
 		},
 		response: {
 			200: {
@@ -25,16 +23,10 @@ const updateUserSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'username', 'avatarUrl', 'preferences', 'metadata', 'createdAt', 'updatedAt'],
+						required: ['status'],
 						additionalProperties: false,
 						properties: {
-							userId: { type: 'string', format: 'uuid' },
-							username: { type: 'string' },
-							avatarUrl: { type: 'string' },
-							preferences: { type: 'object' },
-							metadata: { type: 'object' },
-							createdAt: { type: 'string' },
-							updatedAt: { type: 'string' },
+							status: { type: 'string' }
 						}
 
 					},
@@ -153,4 +145,4 @@ const updateUserSchema: RouteShorthandOptions = {
 	}
 };
 
-export default updateUserSchema;
+export default getUserStatusSchema;

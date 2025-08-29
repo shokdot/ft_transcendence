@@ -21,6 +21,7 @@ const authenticate = async (request: UserRequest, reply: FastifyReply) => {
 
 		const { sub } = decoded;
 		request.userId = sub;
+		request.accessToken = authHeader;
 
 	} catch (error: any) {
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');

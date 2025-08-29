@@ -3,6 +3,7 @@ import prisma from "src/utils/prismaClient.js";
 import generateJwtTokens from 'src/utils/generateJwtTokens.js';
 import JwtType from '@core/types/jwtType.js';
 import { signJwt } from '@core/utils/jwt.js';
+import axios from 'axios';
 
 const loginUser = async ({ email, password }): Promise<any> => {
 	email = email.trim().toLowerCase();
@@ -24,6 +25,16 @@ const loginUser = async ({ email, password }): Promise<any> => {
 	}
 
 	const tokens = await generateJwtTokens(user.id);
+
+	await axios.patch('http://127.0.0.1:3001/api/v1/users/me/status',
+		{
+			status: 'ONLINE'
+		},
+		{
+			headers: {
+				Authorization: `Bearer ${tokens.accessToken}`,
+			},
+		});
 
 	return { userId: user.id, ...tokens };
 };

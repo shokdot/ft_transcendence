@@ -1,11 +1,13 @@
-import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyReply } from "fastify";
 import sendError from '@core/utils/sendError.js';
 import logoutUser from "../service/logoutUser.service.js";
+import { UserRequest } from "@core/types/userRequest.js";
 
-const logoutUserHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+const logoutUserHandler = async (request: UserRequest, reply: FastifyReply) => {
 	try {
+		const accessToken = request.accessToken;
 		const refreshToken = request.cookies?.refreshToken;
-		await logoutUser({ refreshToken });
+		await logoutUser({ accessToken, refreshToken });
 
 		reply.clearCookie('refreshToken', {
 			path: '/refresh',

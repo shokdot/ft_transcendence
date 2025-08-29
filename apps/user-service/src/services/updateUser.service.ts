@@ -18,15 +18,9 @@ const updateUser = async (userId: string, data: updateUserDto) => {
 
 	if (data.avatarUrl && !isBase64Image(data.avatarUrl)) throw { code: 'INVALID_AVATAR' }
 
-	const updateData = {
-		...data,
-		preferences: data.preferences ? (data.preferences as Prisma.JsonValue) : undefined,
-		metadata: data.metadata ? (data.metadata as Prisma.JsonValue) : undefined,
-	};
-
 	return await prisma.userProfile.update({
 		where: { userId },
-		data: updateData,
+		data: data,
 	});
 }
 

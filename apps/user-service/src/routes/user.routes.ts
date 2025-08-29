@@ -7,7 +7,7 @@ export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.get('/me', userSchema.getCurrentUserSchema, usersController.getCurrentUserHandler);
 	app.get('/:userId', userSchema.getUserByIdSchema, usersController.getUserByIdHandler);
 	app.patch('/me', userSchema.updateUserSchema, usersController.updateUserHandler);
+	app.patch('/me/status', userSchema.updateUserStatusSchema, usersController.updateStatusHandler);
 	// app.get('/:userId', userSchema.getUserByIdSchema, usersController.getUserByIdHandler); // query search
-	// app.patch('/me/status', usersController.updateUserHandler); // status change
-	// app.get('/:userId/status', userSchema.getUserByIdSchema, usersController.getUserByIdHandler); // get user status
+	app.get('/:userId/status', userSchema.getUserStatusSchema, usersController.getUserStatusHandler);
 }
