@@ -12,14 +12,14 @@ const transporter: Transporter = nodemailer.createTransport({
 });
 
 export const sendResetEmail = async (to: string, token: string) => {
-	const resetUrl = `http://127.0.0.1:3000/api/v1/auth/reset-password?token=${token}`;
+	const resetUrl = `http://127.0.0.1:3000/api/v1/auth/password/reset?token=${token}`;
 	await transporter.sendMail({
 		from: '"ft_transcendence" <no-reply@bigbang-transcendence.com>',
 		to,
 		subject: "Reset Your Password",
 		html: `
       <h1>Reset Your password!</h1>
-      <p>It looks like a password reset was requested for your account. If this wasn’t you, ուրեմն չգիտեմ ախպեր չգիտեմ</p>
+      <p>It looks like a password reset was requested for your account. If this wasn’t you, ուրեմն չգիտեմ ախպեր հորս արև չգիտեմ</p>
       <a href="${resetUrl}">Click here please!</a>
     `,
 	});
