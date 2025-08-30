@@ -7,6 +7,8 @@ const forgotPass = async (email: string) => {
 	const user = await prisma.authUser.findUnique({ where: { email } });
 	if (!user) throw { code: 'USER_NOT_FOUND' }
 
+	if (!user.passwordHash) throw { code: 'OAUTH_USER' };
+
 	const token = crypto.randomBytes(32).toString("hex");
 	const expiresAt = new Date(Date.now() + 1000 * 60 * 60);
 

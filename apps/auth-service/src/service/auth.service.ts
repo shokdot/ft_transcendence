@@ -6,7 +6,9 @@ import getCurrentUser from './getCurrentUser.service.js';
 import twoFaSetup from './twoFaSetup.service.js';
 import twoFaDisable from './twoFaDisable.service.js';
 import oauthLogin from './oauthLogin.service.js';
-import passForgot from './passForget.service.js';
+import forgotPass from './forgotPass.service.js';
+import resetPass from './resetPass.service.js';
+import changePass from './changePass.service.js';
 
 export default {
 	registerUser,
@@ -17,7 +19,9 @@ export default {
 	twoFaSetup,
 	twoFaDisable,
 	oauthLogin,
-	passForgot
+	forgotPass,
+	resetPass,
+	changePass
 };
 
 

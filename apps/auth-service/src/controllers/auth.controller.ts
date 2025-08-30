@@ -9,7 +9,9 @@ import twoFaConfirmHandler from './twoFaConfirm.controller.js';
 import twoFaVerifyHandler from './twoFaVerify.controller.js';
 import twoFaDisableHandler from './twoFaDisable.controller.js';
 import oauthLoginHandler from './oauthLogin.controller.js';
-import passForgotHandler from './passForgot.controller.js';
+import forgotPassHandler from './forgotPass.controller.js';
+import resetPassHandler from './resetPass.controller.js';
+import changePassHandler from './changePass.controller.js';
 
 export default {
 	registerUserHandler,
@@ -23,5 +25,7 @@ export default {
 	twoFaVerifyHandler,
 	twoFaDisableHandler,
 	oauthLoginHandler,
-	passForgotHandler
+	forgotPassHandler,
+	resetPassHandler,
+	changePassHandler
 }
