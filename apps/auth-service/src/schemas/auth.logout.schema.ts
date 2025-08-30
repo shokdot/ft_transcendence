@@ -1,7 +1,7 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js';
 
-const logutUserSchema: RouteShorthandOptions = {
+const logoutUserSchema: RouteShorthandOptions = {
 	preHandler: [authenticate],
 	schema:
 	{
@@ -39,4 +39,4 @@ const logutUserSchema: RouteShorthandOptions = {
 	}
 };
 
-export default logutUserSchema;
+export default logoutUserSchema;

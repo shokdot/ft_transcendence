@@ -7,7 +7,7 @@ const basicAuthRoutes = async (app: FastifyInstance) => {
 	app.get('/verify-email', authSchema.verifyEmailSchema, authController.verifyUserHandler);
 	app.post('/register', authSchema.registerSchema, authController.registerUserHandler);
 	app.post('/login', authSchema.loginSchema, authController.loginUserHandler);
-	app.post('/logut', authSchema.logutUserSchema, authController.logoutUserHandler);
+	app.post('/logout', authSchema.logoutUserSchema, authController.logoutUserHandler);
 	app.post('/refresh', authSchema.refreshSchema, authController.refreshToken);
 }
 

@@ -2,7 +2,7 @@ import prisma from "src/utils/prismaClient.js";
 import crypto from "crypto";
 import { sendResetEmail } from "src/utils/email.js";
 
-const passForgot = async (email: string) => {
+const forgotPass = async (email: string) => {
 
 	const user = await prisma.authUser.findUnique({ where: { email } });
 	if (!user) throw { code: 'USER_NOT_FOUND' }
@@ -22,4 +22,4 @@ const passForgot = async (email: string) => {
 
 }
 
-export default passForgot;
+export default forgotPass;

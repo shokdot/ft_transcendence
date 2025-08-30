@@ -3,7 +3,7 @@ import loginSchema from "./auth.login.schema.js";
 import verifyEmailSchema from "./auth.verifyEmail.schema.js"
 import refreshSchema from "./auth.refresh.schema.js";
 import getCurrentUserSchema from "./auth.getCurrentUser.schema.js";
-import logutUserSchema from "./auth.logout.schema.js";
+import logoutUserSchema from "./auth.logout.schema.js";
 import twoFaSetupSchema from "./auth.twoFaSetup.schema.js"
 import twoFaConfirmSchema from "./auth.twoFaConfirm.schema.js";
 import twoFaVerifySchema from "./auth.twoFaVerify.schema.js";
@@ -17,7 +17,7 @@ export default {
 	verifyEmailSchema,
 	refreshSchema,
 	getCurrentUserSchema,
-	logutUserSchema,
+	logoutUserSchema,
 	twoFaSetupSchema,
 	twoFaConfirmSchema,
 	twoFaVerifySchema,

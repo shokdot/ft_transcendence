@@ -1,12 +1,11 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import RegisterBody from '../types/registerBody.js';
 import authService from '../service/auth.service.js'
 import sendError from '@core/utils/sendError.js';
 
-const passForgotHandler = async (request: FastifyRequest, reply: FastifyReply) => {
+const forgotPassHandler = async (request: FastifyRequest, reply: FastifyReply) => {
 	try {
 		const { email } = request.body as { email: string };
-		await authService.passForgot(email);
+		await authService.forgotPass(email);
 
 		return reply.status(200).send({
 			status: 'success',
@@ -23,4 +22,4 @@ const passForgotHandler = async (request: FastifyRequest, reply: FastifyReply) =
 	}
 }
 
-export default passForgotHandler;
+export default forgotPassHandler;
