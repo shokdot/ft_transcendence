@@ -1,16 +1,17 @@
 import { RouteShorthandOptions } from "fastify";
 
-const forgotPassSchema: RouteShorthandOptions = {
+const resetPassSchema: RouteShorthandOptions = {
 	schema:
 	{
-		description: "Forgot password token generating request.",
+		description: "",
 		tags: ["password management"],
 		body: {
 			type: 'object',
-			required: ['email'],
+			required: ['token', 'password'],
 			additionalProperties: false,
 			properties: {
-				email: { type: 'string' },
+				token: { type: 'string', },
+				password: { type: 'string' }
 			},
 		},
 		response: {
@@ -23,7 +24,7 @@ const forgotPassSchema: RouteShorthandOptions = {
 					message: { type: 'string' }
 				},
 			},
-			404: {
+			400: {
 				type: 'object',
 				required: ['status', 'error'],
 				additionalProperties: false,
@@ -63,4 +64,4 @@ const forgotPassSchema: RouteShorthandOptions = {
 	}
 };
 
-export default forgotPassSchema;
+export default resetPassSchema;

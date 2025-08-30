@@ -10,6 +10,8 @@ import twoFaVerifySchema from "./auth.twoFaVerify.schema.js";
 import twoFaDisableSchema from "./auth.twoFaDisable.schema.js";
 import oauthLoginSchema from "./auth.oauthLogin.schema.js"
 import forgotPassSchema from "./auth.forgetPass.schema.js";
+import resetPassSchema from "./auth.restPass.schema.js";
+import changePassSchema from "./auth.changePass.schema.js";
 
 export default {
 	registerSchema,
@@ -23,5 +25,7 @@ export default {
 	twoFaVerifySchema,
 	twoFaDisableSchema,
 	oauthLoginSchema,
-	forgotPassSchema
+	forgotPassSchema,
+	resetPassSchema,
+	changePassSchema
 };

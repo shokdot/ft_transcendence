@@ -5,8 +5,8 @@ import authSchema from "src/schemas/auth.schema.js";
 
 const passwordRoutes = async (app: FastifyInstance) => {
 	app.post('/forgot', authSchema.forgotPassSchema, authController.forgotPassHandler);
-	app.post('/reset', authController.resetPassHandler);
-	app.put('/change', { preHandler: authenticate }, authController.changePassHandler);
+	app.post('/reset', authSchema.resetPassSchema, authController.resetPassHandler);
+	app.put('/change', authSchema.changePassSchema, authController.changePassHandler);
 }
 
 export default passwordRoutes;
