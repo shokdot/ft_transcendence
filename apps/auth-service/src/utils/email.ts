@@ -12,7 +12,7 @@ const transporter: Transporter = nodemailer.createTransport({
 });
 
 export const sendResetEmail = async (to: string, token: string) => {
-	const resetUrl = `http://127.0.0.1:3000/api/v1/auth/password/reset?token=${token}`;
+	const resetUrl = `http://127.0.0.1:3000/api/v1/auth/password/reset?token=${token}`; //fronend route
 	await transporter.sendMail({
 		from: '"ft_transcendence" <no-reply@bigbang-transcendence.com>',
 		to,
@@ -20,7 +20,7 @@ export const sendResetEmail = async (to: string, token: string) => {
 		html: `
       <h1>Reset Your password!</h1>
       <p>It looks like a password reset was requested for your account. If this wasn’t you, ուրեմն չգիտեմ ախպեր հորս արև չգիտեմ</p>
-      <a href="${resetUrl}">Click here please!</a>
+      <a href="${resetUrl}">Click here to reset your password</a>
     `,
 	});
 }
@@ -34,7 +34,7 @@ export const sendVerificationEmail = async (to: string, token: string, username:
 		html: `
       <h1>Welcome ${username}!</h1>
       <p>Please verify your email by clicking the link below:</p>
-      <a href="${verificationUrl}">Click here please!</a>
+      <a href="${verificationUrl}">Verify email</a>
     `,
 	});
 };
