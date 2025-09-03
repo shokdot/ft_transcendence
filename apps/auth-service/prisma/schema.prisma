@@ -24,7 +24,7 @@ model AuthUser {
 
 model RefreshToken {
     id        String   @id @default(cuid())
-    user      AuthUser @relation(fields: [userId], references: [id])
+    user      AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     tokenHash String
     createdAt DateTime @default(now())
@@ -36,7 +36,7 @@ model RefreshToken {
 
 model PasswordResetToken {
     id        String   @id @default(uuid())
-    user      AuthUser @relation(fields: [userId], references: [id])
+    user      AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String
     token     String   @unique
     expiresAt DateTime
