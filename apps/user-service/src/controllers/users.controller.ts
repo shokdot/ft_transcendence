@@ -4,6 +4,8 @@ import getUserByIdHandler from "./getUserById.controller.js";
 import updateUserHandler from "./updateUser.controller.js";
 import updateStatusHandler from "./updateStatus.controller.js";
 import getUserStatusHandler from "./getUserStatus.controller.js";
+import searchUserHandler from "./searchUser.controller.js";
+import getUserByNameHandler from "./getUserByName.controller.js";
 
 export default {
 	createUserHandler,
@@ -11,5 +13,7 @@ export default {
 	getUserByIdHandler,
 	updateUserHandler,
 	updateStatusHandler,
-	getUserStatusHandler
+	getUserStatusHandler,
+	searchUserHandler,
+	getUserByNameHandler
 }

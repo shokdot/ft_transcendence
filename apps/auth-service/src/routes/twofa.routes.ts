@@ -1,12 +1,17 @@
 import { FastifyInstance } from "fastify";
-import authController from "src/controllers/auth.controller.js";
-import authSchema from "src/schemas/auth.schema.js";
+import { twoFa } from "src/schemas/index.js";
+import {
+	twoFaSetupHandler,
+	twoFaConfirmHandler,
+	twoFaVerifyHandler,
+	twoFaDisableHandler,
+} from 'src/controllers/twofa/index.js';
 
 const twofaRoutes = async (app: FastifyInstance) => {
-	app.post('/setup', authSchema.twoFaSetupSchema, authController.twoFaSetupHandler);
-	app.post('/confirm', authSchema.twoFaConfirmSchema, authController.twoFaConfirmHandler);
-	app.post('/verify', authSchema.twoFaVerifySchema, authController.twoFaVerifyHandler);
-	app.delete('/disable', authSchema.twoFaDisableSchema, authController.twoFaDisableHandler);
+	app.post('/setup', twoFa.setup, twoFaSetupHandler);
+	app.post('/confirm', twoFa.confirm, twoFaConfirmHandler);
+	app.post('/verify', twoFa.verify, twoFaVerifyHandler);
+	app.delete('/disable', twoFa.disable, twoFaDisableHandler);
 }
 
 export default twofaRoutes;

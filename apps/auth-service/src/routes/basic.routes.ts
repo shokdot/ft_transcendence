@@ -1,14 +1,21 @@
 import { FastifyInstance } from "fastify";
-import authController from "src/controllers/auth.controller.js";
-import authSchema from "src/schemas/auth.schema.js";
+import { basic } from 'src/schemas/index.js';
+import {
+	getCurrentUserHandler,
+	verifyUserHandler,
+	refreshTokenHandler,
+	loginUserHandler,
+	registerUserHandler,
+	logoutUserHandler
+} from 'src/controllers/basic/index.js'
 
 const basicAuthRoutes = async (app: FastifyInstance) => {
-	app.get('/me', authSchema.getCurrentUserSchema, authController.getCurrentUser);
-	app.get('/verify-email', authSchema.verifyEmailSchema, authController.verifyUserHandler);
-	app.post('/register', authSchema.registerSchema, authController.registerUserHandler);
-	app.post('/login', authSchema.loginSchema, authController.loginUserHandler);
-	app.post('/logout', authSchema.logoutUserSchema, authController.logoutUserHandler);
-	app.post('/refresh', authSchema.refreshSchema, authController.refreshToken);
+	app.get('/me', basic.getCurrentUser, getCurrentUserHandler);
+	app.get('/verify-email', basic.verifyEmail, verifyUserHandler);
+	app.post('/register', basic.register, registerUserHandler);
+	app.post('/login', basic.login, loginUserHandler);
+	app.post('/logout', basic.logout, logoutUserHandler);
+	app.post('/refresh', basic.refresh, refreshTokenHandler);
 }
 
 export default basicAuthRoutes;

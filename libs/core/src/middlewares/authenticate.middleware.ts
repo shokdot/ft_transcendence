@@ -1,10 +1,10 @@
 import { FastifyReply } from 'fastify';
-import { UserRequest } from '../types/userRequest.js';
+import { AuthRequest } from '../types/authRequest.js';
 import sendError from '../utils/sendError.js';
 import { verifyJwt } from '../utils/jwt.js';
 import JwtType from '../types/jwtType.js';
 
-const authenticate = async (request: UserRequest, reply: FastifyReply) => {
+const authenticate = async (request: AuthRequest, reply: FastifyReply) => {
 	try {
 		const authHeader = request.headers['authorization'];
 		if (!authHeader || !authHeader.startsWith('Bearer ')) {

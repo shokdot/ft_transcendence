@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
+import { oauthLoginHandler } from 'src/controllers/oauth/index.js'
 import fastifyOauth2 from "@fastify/oauth2";
-import authController from "src/controllers/auth.controller.js";
-import authSchema from "src/schemas/auth.schema.js";
+import { oauth } from "src/schemas/index.js";
 
 const oauthRoutes = async (app: FastifyInstance) => {
 	app.register(fastifyOauth2, {
@@ -27,7 +27,7 @@ const oauthRoutes = async (app: FastifyInstance) => {
 		callbackUri: "http://localhost:3000/api/v1/auth/oauth/github/callback",
 	});
 
-	app.get('/github/callback', authSchema.oauthLoginSchema, authController.oauthLoginHandler());
+	app.get('/github/callback', oauth.oauthLogin, oauthLoginHandler());
 }
 
 export default oauthRoutes;
