@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import sendError from '@core/utils/sendError.js';
+import sendError from './utils/sendError.js';
 
 export function setErrorHandler(app: FastifyInstance) {
 	app.setErrorHandler((error: unknown, request: FastifyRequest, reply: FastifyReply) => {

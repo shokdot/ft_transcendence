@@ -29,15 +29,23 @@ const registerUser = async ({ email, username, password }) => {
 		},
 	});
 
-	const result = await axios.post('http://127.0.0.1:3001/api/v1/users', {
-		'userId': newUser.id,
-		username
-	});
+	try {
+		await axios.post('http://127.0.0.1:3001/api/v1/users', {
+			'userId': newUser.id,
+			username
+		});
 
-	if (result.status !== 201) {
-		await prisma.authUser.delete({ where: { id: newUser.id } });
-		if (result.status === 409) throw { code: 'USERNAME_EXISTS' };
-		else throw { code: 'USER_SERVICE_ERROR' };
+	} catch (error: any) {
+		if (axios.isAxiosError(error)) {
+			await prisma.authUser.delete({ where: { id: newUser.id } });
+			if (error.response?.status === 409) {
+				throw { code: 'USERNAME_EXISTS' };
+			}
+			else {
+				throw { code: 'USER_SERVICE_ERROR' };
+			}
+		}
+		throw error;
 	}
 
 	// await sendVerificationEmail(email, verificationToken, username); //enable in prod

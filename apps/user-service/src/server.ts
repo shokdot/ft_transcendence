@@ -1,13 +1,15 @@
-import app from './app.js';
+import 'dotenv/config'
+import { FastifyInstance } from 'fastify';
+import { buildApp, startServer, API_PREFIX } from '@core/index.js';
+import healthRoutes from './routes/health.routes.js';
+import userRoutes from './routes/user.routes.js';
+import { PORT, HOST } from './utils/env.js';
 
-const start = async () => {
-	try {
-		await app.listen({ port: 3001, host: '0.0.0.0' });
-		console.log('Server running');
-	} catch (err) {
-		app.log.error(err);
-		process.exit(1);
-	}
-};
+const app: FastifyInstance = buildApp();
 
-start();
+async function registerRoutes(app: FastifyInstance) {
+	await app.register(healthRoutes, { prefix: API_PREFIX });
+	await app.register(userRoutes, { prefix: `${API_PREFIX}/users` });
+}
+
+startServer(app, registerRoutes, HOST, PORT);

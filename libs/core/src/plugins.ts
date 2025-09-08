@@ -3,10 +3,10 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
 import fastifyCookie from '@fastify/cookie';
+import helmet from '@fastify/helmet';
 import { COOKIE_SECRET } from './env.js';
-import { PORT, HOST } from './env.js';
 
-export async function registerPlugins(app: FastifyInstance) {
+export async function registerPlugins(app: FastifyInstance, host: string, port: number) {
 	if (process.env.NODE_ENV !== 'production') {
 		await app.register(swagger, {
 			openapi: {
@@ -18,7 +18,7 @@ export async function registerPlugins(app: FastifyInstance) {
 				},
 				servers: [
 					{
-						url: `http://${HOST}:${PORT}`,
+						url: `http://${host}:${port}`,
 						description: 'Development server',
 					},
 				],
@@ -29,6 +29,27 @@ export async function registerPlugins(app: FastifyInstance) {
 			uiConfig: { docExpansion: 'full', deepLinking: false },
 		});
 	}
+
+	await app.register(helmet, {
+		contentSecurityPolicy: {
+			directives: {
+				defaultSrc: ["'self'"],
+				scriptSrc: ["'self'", "'unsafe-inline'"],
+				styleSrc: ["'self'", "'unsafe-inline'"],
+				imgSrc: ["'self'", "data:"],
+				connectSrc: ["'self'"],
+				fontSrc: ["'self'", "https:", "data:"],
+				objectSrc: ["'none'"],
+				upgradeInsecureRequests: [],
+			},
+		},
+		crossOriginEmbedderPolicy: true,
+		crossOriginOpenerPolicy: true,
+		crossOriginResourcePolicy: { policy: 'same-origin' },
+		referrerPolicy: { policy: 'no-referrer' },
+		xssFilter: true,
+		hidePoweredBy: true,
+	});
 
 	await app.register(rateLimit, { // improve most clever way
 		max: 5,
