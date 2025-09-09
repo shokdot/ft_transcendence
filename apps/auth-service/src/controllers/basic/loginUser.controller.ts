@@ -43,10 +43,6 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: loginDTO }>, rep
 			return sendError(reply, 403, error.code, 'Email address not verfied', { field: 'email' });
 		}
 
-		console.log("smth happendç")
-		console.log(error);
-
-
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 }
