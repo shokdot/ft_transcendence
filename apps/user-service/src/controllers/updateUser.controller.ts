@@ -1,10 +1,10 @@
 import { FastifyReply } from "fastify";
-import { UserRequest } from '@core/types/userRequest.js';
+import { AuthRequest } from '@core/types/authRequest.js';
 import userService from 'src/services/users.service.js';
 import sendError from "@core/utils/sendError.js";
 import { updateUserDto } from "src/dto/updateUser.dto.js";
 
-const updateUserHandler = async (request: UserRequest, reply: FastifyReply) => {
+const updateUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
 		const body: updateUserDto = request.body;
