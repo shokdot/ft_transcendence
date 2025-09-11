@@ -1,4 +1,5 @@
 import createUser from "./createUser.service.js";
+import deleteUser from "./deleteUser.service.js";
 import getCurrentUser from "./getCurrentUser.service.js";
 import getUserById from "./getUserById.service.js";
 import getUserByName from "./getUserByName.service.js";
@@ -15,5 +16,6 @@ export default {
 	updateUserStatus,
 	getUserStatus,
 	searchUser,
-	getUserByName
+	getUserByName,
+	deleteUser
 };

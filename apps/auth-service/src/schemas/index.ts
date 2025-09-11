@@ -12,6 +12,7 @@ import oauthLoginSchema from "./oauth/auth.oauthLogin.schema.js"
 import forgotPassSchema from "./password/auth.forgetPass.schema.js";
 import resetPassSchema from "./password/auth.restPass.schema.js";
 import changePassSchema from "./password/auth.changePass.schema.js";
+import deleteUserSchema from "./basic/auth.deleteUser.schema.js";
 
 export const basic = {
 	register: registerSchema,
@@ -20,6 +21,7 @@ export const basic = {
 	refresh: refreshSchema,
 	getCurrentUser: getCurrentUserSchema,
 	logout: logoutUserSchema,
+	deleteUser: deleteUserSchema
 };
 
 export const twoFa = {
