@@ -5,6 +5,7 @@ import getUserById from "./getUserById.service.js";
 import getUserByName from "./getUserByName.service.js";
 import getUserStatus from "./getUserStatus.service.js";
 import searchUser from "./searchUser.service.js";
+import updateAvatar from "./updateAvatar.service.js";
 import updateUser from "./updateUser.service.js";
 import updateUserStatus from "./updateUserStatus.service.js";
 
@@ -17,5 +18,6 @@ export default {
 	getUserStatus,
 	searchUser,
 	getUserByName,
-	deleteUser
+	deleteUser,
+	updateAvatar
 };

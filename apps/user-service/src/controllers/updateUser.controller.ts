@@ -27,9 +27,6 @@ const updateUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
 		if (error.code === 'USER_NOT_FOUND') {
 			return sendError(reply, 404, error.code, 'The requested user does not exist.');
 		}
-		if (error.code === 'INVALID_AVATAR') {
-			return sendError(reply, 400, error.code, 'Avatar must be a valid Base64 image.');
-		}
 
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}

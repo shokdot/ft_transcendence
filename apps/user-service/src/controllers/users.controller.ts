@@ -7,6 +7,8 @@ import getUserStatusHandler from "./getUserStatus.controller.js";
 import searchUserHandler from "./searchUser.controller.js";
 import getUserByNameHandler from "./getUserByName.controller.js";
 import deleteUserHandler from "./deleteUser.controller.js";
+import updateAvatarHandler from "./updateAvatar.controller.js";
+import deleteAvatarHandler from "./deleteAvatar.controller.js";
 
 export default {
 	createUserHandler,
@@ -17,5 +19,7 @@ export default {
 	getUserStatusHandler,
 	searchUserHandler,
 	getUserByNameHandler,
-	deleteUserHandler
+	deleteUserHandler,
+	updateAvatarHandler,
+	deleteAvatarHandler
 }

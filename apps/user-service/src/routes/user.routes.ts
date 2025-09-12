@@ -13,7 +13,8 @@ export default async function userRoutes(app: FastifyInstance): Promise<void> {
 	app.patch('/me', userSchema.updateUserSchema, usersController.updateUserHandler);
 	app.delete('/me', { preHandler: authenticate }, usersController.deleteUserHandler);
 	app.patch('/me/status', userSchema.updateUserStatusSchema, usersController.updateStatusHandler);
+	app.patch('/me/avatar', { preHandler: authenticate }, usersController.updateAvatarHandler);
+	app.delete('/me/avatar', { preHandler: authenticate }, usersController.deleteAvatarHandler);
 	// settings
-	// avatar change, delete
 	// Optional: last active timestamp (/:userId/last-active)
 }

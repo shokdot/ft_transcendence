@@ -1,7 +1,5 @@
 import prisma from "src/utils/prismaClient.js";
 import { updateUserDto } from "src/dto/updateUser.dto.js";
-import { Prisma } from '@prisma/client';
-import isBase64Image from "src/utils/isBase64Image.js";
 
 const updateUser = async (userId: string, data: updateUserDto) => {
 
@@ -15,8 +13,6 @@ const updateUser = async (userId: string, data: updateUserDto) => {
 		const existingUser = await prisma.userProfile.findFirst({ where: { username: data.username } });
 		if (existingUser && existingUser.userId !== userId) throw { code: 'USERNAME_TAKEN' };
 	}
-
-	if (data.avatarUrl && !isBase64Image(data.avatarUrl)) throw { code: 'INVALID_AVATAR' }
 
 	return await prisma.userProfile.update({
 		where: { userId },
