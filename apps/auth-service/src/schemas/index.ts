@@ -1,18 +1,18 @@
-import registerSchema from "./basic/auth.register.schema.js";
-import loginSchema from "./basic/auth.login.schema.js";
-import verifyEmailSchema from "./basic/auth.verifyEmail.schema.js"
-import refreshSchema from "./basic/auth.refresh.schema.js";
-import getCurrentUserSchema from "./basic/auth.getCurrentUser.schema.js";
-import logoutUserSchema from "./basic/auth.logout.schema.js";
-import twoFaSetupSchema from "./twofa/auth.twoFaSetup.schema.js"
-import twoFaConfirmSchema from "./twofa/auth.twoFaConfirm.schema.js";
-import twoFaVerifySchema from "./twofa/auth.twoFaVerify.schema.js";
-import twoFaDisableSchema from "./twofa/auth.twoFaDisable.schema.js";
-import oauthLoginSchema from "./oauth/auth.oauthLogin.schema.js"
-import forgotPassSchema from "./password/auth.forgetPass.schema.js";
-import resetPassSchema from "./password/auth.restPass.schema.js";
-import changePassSchema from "./password/auth.changePass.schema.js";
-import deleteUserSchema from "./basic/auth.deleteUser.schema.js";
+import registerSchema from "./basic/register.schema.js";
+import loginSchema from "./basic/login.schema.js";
+import verifyEmailSchema from "./basic/verifyEmail.schema.js"
+import refreshSchema from "./basic/refresh.schema.js";
+import getCurrentUserSchema from "./basic/getCurrentUser.schema.js";
+import logoutUserSchema from "./basic/logout.schema.js";
+import twoFaSetupSchema from "./twofa/twoFaSetup.schema.js"
+import twoFaConfirmSchema from "./twofa/twoFaConfirm.schema.js";
+import twoFaVerifySchema from "./twofa/twoFaVerify.schema.js";
+import twoFaDisableSchema from "./twofa/twoFaDisable.schema.js";
+import oauthLoginSchema from "./oauth/oauthLogin.schema.js"
+import forgotPassSchema from "./password/forgetPass.schema.js";
+import resetPassSchema from "./password/restPass.schema.js";
+import changePassSchema from "./password/changePass.schema.js";
+import deleteUserSchema from "./basic/delete.schema.js";
 
 export const basic = {
 	register: registerSchema,
