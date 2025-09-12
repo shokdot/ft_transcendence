@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import userService from 'src/services/users.service.js';
+import { updateAvatar } from 'src/services/avatar/index.js'
 import sendError from "@core/utils/sendError.js";
 import getAvatarUrl from "src/utils/avatar.js";
 
@@ -8,7 +8,7 @@ const deleteAvatarHandler = async (request: AuthRequest, reply: FastifyReply) =>
 	try {
 		const { userId } = request;
 
-		await userService.updateAvatar(userId, getAvatarUrl());
+		await updateAvatar(userId, getAvatarUrl());
 
 		reply.status(200).send({
 			status: 'success',

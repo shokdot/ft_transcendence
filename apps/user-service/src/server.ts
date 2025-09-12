@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import { FastifyInstance } from 'fastify';
 import { buildApp, startServer, API_PREFIX } from '@core/index.js';
-import healthRoutes from './routes/health.routes.js';
-import userRoutes from './routes/user.routes.js';
 import { PORT, HOST } from './utils/env.js';
+import healthRoutes from './routes/health.routes.js';
+import userRoutes from 'src/routes/index.js';
 
 const app: FastifyInstance = buildApp();
 

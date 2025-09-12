@@ -1,16 +1,16 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import userService from 'src/services/users.service.js';
-import sendError from "@core/utils/sendError.js";
-import { UpdateStatusDto } from "src/dto/updateStatus.dto.js";
+import { updateUserStatus } from 'src/services/me/index.js';
+import { updateStatusDTO } from "src/dto/update-status.dto.js";
 import { userStatus } from 'src/types/userStatus.js';
+import sendError from "@core/utils/sendError.js";
 
-const updateStatusHandler = async (request: AuthRequest<UpdateStatusDto>, reply: FastifyReply) => {
+const updateStatusHandler = async (request: AuthRequest<updateStatusDTO>, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
 		const { status } = request.body;
 
-		await userService.updateUserStatus(userId, status as userStatus);
+		await updateUserStatus(userId, status as userStatus);
 
 		reply.status(200).send({
 			status: 'success',

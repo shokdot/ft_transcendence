@@ -1,14 +1,14 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import userService from 'src/services/users.service.js';
+import { searchUser } from 'src/services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
 const searchUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
 	try {
-		const { userId } = request.params as { userId: string };
-		const { query } = request.query as { query: string };
+		const { userId } = request.params as { userId: string }; // fix this 
+		const { query } = request.query as { query: string }; // fix this
 
-		const data = await userService.searchUser(userId, query);
+		const data = await searchUser(userId, query);
 
 		reply.status(200).send({
 			status: 'success',

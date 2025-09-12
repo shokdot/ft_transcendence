@@ -1,18 +1,21 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import userService from 'src/services/users.service.js';
+import { getUserByName } from 'src/services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
-const getCurrentUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
+const getUserByNameHandler = async (request: AuthRequest, reply: FastifyReply) => {
 	try {
-		const { userId } = request;
-		const data = await userService.getCurrentUser(userId);
+		const { userId } = request.params as { userId: string }; // fix this
+		const { username } = request.params as { username: string }; // fix this
+
+		const data = await getUserByName(userId, username);
 
 		reply.status(200).send({
 			status: 'success',
 			data,
-			message: 'User retrieved successfully'
+			message: 'Users found successfully'
 		});
+
 	}
 	catch (error: any) {
 		if (error.code === 'USER_NOT_FOUND')
@@ -22,4 +25,4 @@ const getCurrentUserHandler = async (request: AuthRequest, reply: FastifyReply) 
 	}
 }
 
-export default getCurrentUserHandler;
+export default getUserByNameHandler;

@@ -1,15 +1,15 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import userService from 'src/services/users.service.js';
+import { updateAvatar } from 'src/services/avatar/index.js'
+import { updateAvatarDTO } from "src/dto/update-avatar.dto.js";
 import sendError from "@core/utils/sendError.js";
-import { updateAvatarDTO } from "src/dto/updateAvatar.dto.js";
 
 const updateAvatarHandler = async (request: AuthRequest<updateAvatarDTO>, reply: FastifyReply) => {
 	try {
 		const { userId } = request;
 		const { avatarUrl } = request.body;
 
-		await userService.updateAvatar(userId, avatarUrl);
+		await updateAvatar(userId, avatarUrl);
 
 		reply.status(200).send({
 			status: 'success',

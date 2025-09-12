@@ -1,12 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
+import { getUserById } from 'src/services/basic/index.js';
+import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 import sendError from "@core/utils/sendError.js";
-import userService from 'src/services/users.service.js';
-import { userByIdParamDto } from "src/dto/userByIdParam.dto.js";
 
-const getUserByIdHandler = async (request: FastifyRequest<{ Params: userByIdParamDto }>, reply: FastifyReply) => {
+const getUserByIdHandler = async (request: FastifyRequest<{ Params: userByIdDTO }>, reply: FastifyReply) => {
 	try {
 		const { userId } = request.params;
-		const data = await userService.getUserById(userId);
+		const data = await getUserById(userId);
 
 		reply.status(200).send({
 			status: 'success',
