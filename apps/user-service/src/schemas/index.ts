@@ -4,6 +4,7 @@ import getUserByIdSchema from "./basic/getUserById.schema.js";
 import updateUserStatusSchema from "./me/updateStatus.schema.js";
 import updateUserSchema from "./me/updateUser.schema.js";
 import getUserStatusSchema from "./basic/getUserStatus.schema.js";
+import deleteUserSchema from "./me/deleteUser.schema.js";
 
 export const basic = {
 	createUser: createUserSchema,
@@ -15,6 +16,7 @@ export const me = {
 	getCurrentUser: getCurrentUserSchema,
 	updateUser: updateUserSchema,
 	updateUserStatus: updateUserStatusSchema,
+	deleteUser: deleteUserSchema
 };
 
 export const avatar = {};

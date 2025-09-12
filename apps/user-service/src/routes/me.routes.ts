@@ -1,6 +1,5 @@
 import { FastifyInstance } from "fastify";
 import { me } from 'src/schemas/index.js'
-import authenticate from "@core/middlewares/authenticate.middleware.js";
 import {
 	getCurrentUserHandler,
 	updateUserHandler,
@@ -11,7 +10,7 @@ import {
 const meRoutes = async (app: FastifyInstance) => {
 	app.get('/', me.getCurrentUser, getCurrentUserHandler);
 	app.patch('/', me.updateUser, updateUserHandler);
-	app.delete('/', { preHandler: authenticate }, deleteUserHandler); // add schema
+	app.delete('/', me.deleteUser, deleteUserHandler);
 	app.patch('/status', me.updateUserStatus, updateStatusHandler);
 }
 
