@@ -3,7 +3,7 @@ import { LOG_LEVEL } from './env.js';
 import { registerPlugins } from './plugins.js';
 import { setErrorHandler } from './errorHandler.js';
 
-export function buildApp() {
+export function buildApp(serviceName: string) {
 	const app = Fastify({
 		logger: {
 			level: LOG_LEVEL,
@@ -15,7 +15,7 @@ export function buildApp() {
 		trustProxy: true,
 		bodyLimit: 1048576,
 	});
-	setErrorHandler(app);
+	setErrorHandler(app, serviceName);
 	return app;
 }
 

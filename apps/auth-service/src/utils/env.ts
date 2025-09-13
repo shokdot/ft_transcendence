@@ -9,3 +9,4 @@ const env = envSchema.parse(process.env);
 
 export const PORT = env.PORT;
 export const HOST = env.HOST;
+export const SERVICE_NAME = 'AUTH_SERVICE';

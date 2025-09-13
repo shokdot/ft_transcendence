@@ -3,9 +3,9 @@ import { FastifyInstance } from 'fastify';
 import { buildApp, startServer, API_PREFIX } from '@core/index.js';
 import authRoutes from './routes/index.js';
 import healthRoutes from './routes/health.routes.js';
-import { PORT, HOST } from 'src/utils/env.js';
+import { PORT, HOST, SERVICE_NAME } from 'src/utils/env.js';
 
-const app: FastifyInstance = buildApp();
+const app: FastifyInstance = buildApp(SERVICE_NAME);
 
 async function registerRoutes(app: FastifyInstance) {
 	await app.register(healthRoutes, { prefix: API_PREFIX });
