@@ -1,6 +1,7 @@
 import prisma from "src/utils/prismaClient.js";
 import bcrypt from 'bcrypt';
 import zxcvbn from 'zxcvbn';
+import { AppError } from "@core/utils/AppError.js";
 
 const resetPass = async (token: string, newPassword: string) => {
 	const tokenRecord = await prisma.passwordResetToken.findUnique({
@@ -9,11 +10,11 @@ const resetPass = async (token: string, newPassword: string) => {
 	});
 
 	if (!tokenRecord || tokenRecord.expiresAt < new Date()) {
-		throw { code: "INVALID_TOKEN" };
+		throw new AppError('INVALID_TOKEN');
 	}
 
 	const passStrength = zxcvbn(newPassword);
-	if (passStrength.score < 3) throw { code: 'WEAK_PASSWORD' }
+	if (passStrength.score < 3) throw new AppError('WEAK_PASSWORD');
 
 	const hashedPassword = await bcrypt.hash(newPassword, 10);
 

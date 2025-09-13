@@ -4,6 +4,7 @@ import zxcvbn from 'zxcvbn';
 import crypto from 'crypto';
 import prisma from "src/utils/prismaClient.js";
 import { sendVerificationEmail } from 'src/utils/email.js';
+import { AppError } from '@core/utils/AppError.js';
 
 const registerUser = async ({ email, username, password }) => {
 
@@ -11,10 +12,10 @@ const registerUser = async ({ email, username, password }) => {
 	username = username.trim();
 
 	const existingEmail = await prisma.authUser.findUnique({ where: { email } });
-	if (existingEmail) throw { code: 'EMAIL_EXISTS' };
+	if (existingEmail) throw new AppError('EMAIL_EXISTS');
 
 	const passStrength = zxcvbn(password);
-	if (passStrength.score < 3) throw { code: 'WEAK_PASSWORD' }
+	if (passStrength.score < 3) throw new AppError('WEAK_PASSWORD');
 
 	const passwordHash = await bcrypt.hash(password, 10);
 
@@ -39,13 +40,13 @@ const registerUser = async ({ email, username, password }) => {
 		if (axios.isAxiosError(error)) {
 			await prisma.authUser.delete({ where: { id: newUser.id } });
 			if (error.response?.status === 409) {
-				throw { code: 'USERNAME_EXISTS' };
+				throw new AppError('USERNAME_EXISTS');
 			}
 			else {
-				throw { code: 'USER_SERVICE_ERROR' };
+				throw new AppError('USER_SERVICE_ERROR');
 			}
 		}
-		throw error;
+		throw new AppError(error.code);
 	}
 
 	// await sendVerificationEmail(email, verificationToken, username); //enable in prod

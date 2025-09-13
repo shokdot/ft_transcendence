@@ -2,6 +2,7 @@ import axios from 'axios';
 import prisma from "src/utils/prismaClient.js";
 import generateJwtTokens from 'src/utils/generateJwtTokens.js';
 import { v4 as uuidv4 } from 'uuid';
+import { AppError } from '@core/utils/AppError.js';
 
 const oauthLogin = (githubOAuth2: any) => {
 	return {
@@ -10,7 +11,7 @@ const oauthLogin = (githubOAuth2: any) => {
 			const tokenData = await githubOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
 			const { access_token } = tokenData.token;
 
-			if (!access_token) throw { code: 'NO_OAUTH_TOKEN' };
+			if (!access_token) throw new AppError('NO_OAUTH_TOKEN');
 
 			const profile = await axios.get('https://api.github.com/user', {
 				headers: { Authorization: `token ${access_token}` },
@@ -20,11 +21,11 @@ const oauthLogin = (githubOAuth2: any) => {
 				headers: { Authorization: `token ${access_token}` },
 			})
 
-			if (profile.status !== 200 || emails.status !== 200) throw { code: 'GITHUB_API_ERROR' };
+			if (profile.status !== 200 || emails.status !== 200) throw new AppError('GITHUB_API_ERROR');
 
 
 			const primaryEmail = emails.data.find((e: any) => e.primary && e.verified)?.email;
-			if (!primaryEmail) throw { code: 'NO_VERIFIED_EMAIL' };
+			if (!primaryEmail) throw new AppError('NO_VERIFIED_EMAIL');
 
 			let user = await prisma.authUser.findUnique({
 				where: { email: primaryEmail },
@@ -45,7 +46,7 @@ const oauthLogin = (githubOAuth2: any) => {
 					username
 				});
 
-				if (result.status !== 201) throw { code: 'USER_SERVICE_ERROR' };
+				if (result.status !== 201) throw new AppError('USER_SERVICE_ERROR');
 			}
 
 			const tokens = await generateJwtTokens(user.id);
