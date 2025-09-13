@@ -16,14 +16,12 @@ const getCurrentUserSchema: RouteShorthandOptions = {
 					status: { type: 'string', enum: ['success'] },
 					data: {
 						type: 'object',
-						required: ['userId', 'username', 'avatarUrl', 'preferences', 'metadata', 'createdAt', 'updatedAt'],
+						required: ['userId', 'username', 'avatarUrl', 'createdAt', 'updatedAt'],
 						additionalProperties: false,
 						properties: {
 							userId: { type: 'string', format: 'uuid' },
 							username: { type: 'string' },
 							avatarUrl: { type: 'string' },
-							preferences: { type: 'object' },
-							metadata: { type: 'object' },
 							createdAt: { type: 'string' },
 							updatedAt: { type: 'string' },
 						}
