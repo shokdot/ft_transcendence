@@ -1,4 +1,5 @@
 import prisma from 'src/utils/prismaClient.js';
+import { AppError } from "@core/utils/AppError.js";
 
 const getUserStatus = async (userId: string) => {
 
@@ -8,11 +9,10 @@ const getUserStatus = async (userId: string) => {
 	});
 
 	if (!status)
-		throw { code: 'USER_NOT_FOUND' };
+		throw new AppError('USER_NOT_FOUND');
 
 	return status;
 
 }
-
 
 export default getUserStatus;
