@@ -7,6 +7,7 @@ const registerUserHandler = async (request: FastifyRequest<{ Body: registerDTO }
 	try {
 		const { body } = request;
 		const user = await registerUser(body);
+
 		return reply.status(201).send({
 			status: 'success',
 			data: {
@@ -28,7 +29,7 @@ const registerUserHandler = async (request: FastifyRequest<{ Body: registerDTO }
 			return sendError(reply, 400, error.code, 'Password is too weak', { field: 'password' })
 		}
 		if (error.code === 'USER_SERVICE_ERROR') {
-			return sendError(reply, 503, error.coded, 'Failed to communicate with user service.')
+			return sendError(reply, 503, error.code, 'Failed to communicate with user service.')
 		}
 		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
