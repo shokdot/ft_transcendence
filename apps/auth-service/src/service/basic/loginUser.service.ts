@@ -27,15 +27,15 @@ const loginUser = async ({ email, password }): Promise<any> => {
 
 	const tokens = await generateJwtTokens(user.id);
 
-	await axios.patch('http://127.0.0.1:3001/api/v1/users/me/status',
-		{
-			status: 'ONLINE'
-		},
-		{
-			headers: {
-				Authorization: `Bearer ${tokens.accessToken}`,
-			},
-		});
+	// await axios.patch('http://127.0.0.1:3001/api/v1/users/me/status/',
+	// 	{
+	// 		status: 'ONLINE'
+	// 	},
+	// 	{
+	// 		headers: {
+	// 			Authorization: `Bearer ${tokens.accessToken}`,
+	// 		},
+	// 	});
 
 	return { userId: user.id, ...tokens };
 };
