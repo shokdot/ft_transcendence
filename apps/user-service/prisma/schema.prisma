@@ -9,26 +9,39 @@ datasource userDb {
 }
 
 model UserProfile {
-    id        String   @id @default(uuid())
-    userId    String   @unique
-    username  String   @unique
-    avatarUrl String?
-    status    String   @default("OFFLINE")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-	sentRequests     Friendship[] @relation("sentRequests")
-  	receivedRequests Friendship[] @relation("receivedRequests")	
+    id               String       @id @default(uuid())
+    userId           String       @unique
+    username         String       @unique
+    avatarUrl        String?
+    status           String       @default("OFFLINE")
+    createdAt        DateTime     @default(now())
+    updatedAt        DateTime     @updatedAt
+    sentRequests     Friendship[] @relation("sentRequests")
+    receivedRequests Friendship[] @relation("receivedRequests")
+    blocks           Block[]      @relation("blocks")
+    blockedBy        Block[]      @relation("blockedBy")
 }
 
 model Friendship {
-  id         String      @id @default(uuid())
-  sender     UserProfile @relation("sentRequests", fields: [senderUserId], references: [userId])
-  senderUserId String
-  receiver   UserProfile @relation("receivedRequests", fields: [receiverUserId], references: [userId])
-  receiverUserId String
-  status     String      @default("pending") // 'pending', 'accepted', 'rejected'
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+    id             String      @id @default(uuid())
+    sender         UserProfile @relation("sentRequests", fields: [senderUserId], references: [userId])
+    senderUserId   String
+    receiver       UserProfile @relation("receivedRequests", fields: [receiverUserId], references: [userId])
+    receiverUserId String
+    status         String      @default("pending") // 'pending', 'accepted', 'rejected'
+    createdAt      DateTime    @default(now())
+    updatedAt      DateTime    @updatedAt
 
-  @@unique([senderUserId, receiverUserId])
+    @@unique([senderUserId, receiverUserId])
+}
+
+model Block {
+    id           String      @id @default(uuid())
+    userId       String // who blocked
+    targetUserId String // who got blocked
+    createdAt    DateTime    @default(now())
+    user         UserProfile @relation("blocks", fields: [userId], references: [userId])
+    targetUser   UserProfile @relation("blockedBy", fields: [targetUserId], references: [userId])
+
+    @@unique([userId, targetUserId])
 }
