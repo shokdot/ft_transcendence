@@ -1,0 +1,20 @@
+{
+	"compilerOptions": {
+		"module": "NodeNext",
+		"target": "ES2022",
+		"moduleResolution": "NodeNext",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"outDir": "./dist",
+		"baseUrl": ".",
+		"paths": {
+			"@core/*": [
+				"../../libs/core/src/*"
+			]
+		}
+	},
+	"include": [
+		"src",
+		"../../libs/core/src/routes/health.routes.ts"
+	]
+}
