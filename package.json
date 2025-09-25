@@ -11,7 +11,8 @@
 	"scripts": {
 		"build": "npm run build --workspaces",
 		"dev:auth": "npm --workspace auth-service run dev",
-		"dev:user": "npm --workspace user-service run dev"
+		"dev:user": "npm --workspace user-service run dev",
+		"dev:notify": "npm --workspace notification-service run dev"
 	},
 	"keywords": [],
 	"author": "",
