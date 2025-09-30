@@ -8,6 +8,15 @@
 		"outDir": "./dist",
 		"baseUrl": ".",
 		"paths": {
+			"@controllers/*": [
+				"src/controllers/*"
+			],
+			"@services/*": [
+				"src/services/*"
+			],
+			"@schemas/*": [
+				"src/schemas/*"
+			],
 			"@core/*": [
 				"../../libs/core/src/*"
 			]

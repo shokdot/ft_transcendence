@@ -1,14 +1,13 @@
 import { FastifyRequest } from "fastify";
 import { WebSocket } from "ws";
-import { updateStatus } from "src/service/status/index.js";
+import { updateStatus } from '@services/status/index.js';
 import authenticateWs from '@core/utils/authenticate.ws.js'
 import handleWsError from "src/utils/handleWsError.js";
 
-const updateStatusHandler = async (conn: WebSocket, request: FastifyRequest) => {
-	const authHeader = request.headers['authorization'];
-	const authResult = authenticateWs(authHeader, conn);
+const wsStatusHandler = async (conn: WebSocket, request: FastifyRequest) => {
+	const authResult = authenticateWs(request.headers['authorization'], conn); // fix change it use only with throw
 
-	if (!authResult) return;
+	if (!authResult) return; // change this
 
 	const { token } = authResult;
 
@@ -30,4 +29,4 @@ const updateStatusHandler = async (conn: WebSocket, request: FastifyRequest) => 
 };
 
 
-export default updateStatusHandler;
+export default wsStatusHandler;
