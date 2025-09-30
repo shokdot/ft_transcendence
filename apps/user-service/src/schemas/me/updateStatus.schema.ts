@@ -1,8 +1,9 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js'
+import updateLastSeen from "src/middleware/lastSeen.middleware.js";
 
 const updateUserStatusSchema: RouteShorthandOptions = {
-	preHandler: [authenticate],
+	preHandler: [authenticate, updateLastSeen],
 	schema:
 	{
 		description: "Update current user status (ONLINE, OFFLINE, IN_GAME)",
