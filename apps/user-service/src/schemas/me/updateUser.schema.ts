@@ -1,9 +1,8 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js'
-import updateLastSeen from "src/middleware/lastSeen.middleware.js";
 
 const updateUserSchema: RouteShorthandOptions = {
-	preHandler: [authenticate, updateLastSeen],
+	preHandler: [authenticate],
 	schema:
 	{
 		description: "Update current user information (username, avatarUrl, preferences, metadata)",

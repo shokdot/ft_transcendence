@@ -14,7 +14,6 @@ model UserProfile {
     username         String       @unique
     avatarUrl        String?
     status           String       @default("OFFLINE")
-    lastSeen         DateTime     @default(now())
     createdAt        DateTime     @default(now())
     updatedAt        DateTime     @updatedAt
     sentRequests     Friendship[] @relation("sentRequests")

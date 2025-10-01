@@ -1,9 +1,8 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js'
-import updateLastSeen from "src/middleware/lastSeen.middleware.js";
 
 const getUserByIdSchema: RouteShorthandOptions = {
-	preHandler: [authenticate, updateLastSeen],
+	preHandler: [authenticate],
 	schema:
 	{
 		description: "Get user public information by userId.",

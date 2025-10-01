@@ -1,9 +1,8 @@
 import { RouteShorthandOptions } from "fastify";
 import authenticate from '@core/middlewares/authenticate.middleware.js';
-import updateLastSeen from "src/middleware/lastSeen.middleware.js";
 
 const deleteUserSchema: RouteShorthandOptions = {
-	preHandler: [authenticate, updateLastSeen],
+	preHandler: [authenticate],
 	schema:
 	{
 		description: "Delete current user",
