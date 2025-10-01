@@ -17,11 +17,13 @@ const listFriendsHandler = async (requst: AuthRequest<undefined, { status?: stri
 		});
 
 	} catch (error) {
-		if (error.code === 'USER_NOT_FOUND') {
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
-		}
+		switch (error.code) {
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 };
 

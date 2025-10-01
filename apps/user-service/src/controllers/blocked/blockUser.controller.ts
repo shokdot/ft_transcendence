@@ -15,18 +15,19 @@ const blockUserHandler = async (request: AuthRequest, reply: FastifyReply) => {
 			message: "User blocked successfully.",
 		});
 	} catch (error: any) {
-		console.log(error);
-		if (error.code === 'BLOCK_SELF') {
-			return sendError(reply, 400, error.code, 'You cannot block yourself.');
-		}
-		if (error.code === 'USER_NOT_FOUND') {
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
-		}
-		if (error.code === 'ALREADY_BLOCKED') {
-			return sendError(reply, 400, error.code, 'You have already blocked this user.');
-		}
+		switch (error.code) {
+			case 'BLOCK_SELF':
+				return sendError(reply, 400, error.code, 'You cannot block yourself.');
 
-		return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
+
+			case 'ALREADY_BLOCKED':
+				return sendError(reply, 400, error.code, 'You have already blocked this user.');
+
+			default:
+				return sendError(reply, 500, "INTERNAL_SERVER_ERROR", "Internal server error");
+		}
 	}
 };
 

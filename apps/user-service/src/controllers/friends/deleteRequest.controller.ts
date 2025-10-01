@@ -24,9 +24,11 @@ const deleteRequestHandler = async (request: AuthRequest<undefined, undefined, d
 
 			case "FRIENDSHIP_NOT_FOUND":
 				return sendError(reply, 404, error.code, "Friendship not found");
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 };
 

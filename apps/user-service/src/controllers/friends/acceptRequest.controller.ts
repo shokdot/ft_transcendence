@@ -23,9 +23,11 @@ const acceptRequestHandler = async (request: AuthRequest<undefined, undefined, a
 
 			case "FRIEND_REQUEST_NOT_FOUND":
 				return sendError(reply, 404, error.code, "Friend request not found");
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 export default acceptRequestHandler;

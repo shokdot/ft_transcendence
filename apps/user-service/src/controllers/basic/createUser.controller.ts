@@ -14,11 +14,13 @@ const createUserHandler = async (request: FastifyRequest<{ Body: createUserDTO }
 		});
 
 	} catch (error) {
-		if (error.code === 'USERNAME_EXISTS') {
-			return sendError(reply, 409, error.code, 'Username is already taken', { field: 'username' })
-		}
+		switch (error.code) {
+			case 'USERNAME_EXISTS':
+				return sendError(reply, 409, error.code, 'Username is already taken', { field: 'username' });
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 
 }

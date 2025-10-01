@@ -19,17 +19,19 @@ const updateStatusHandler = async (request: AuthRequest<updateStatusDTO>, reply:
 
 	}
 	catch (error: any) {
-		if (error.code === 'NO_STATUS_PROVIDED') {
-			return sendError(reply, 400, error.code, 'No status provided for update.', { field: 'status' });
-		}
-		if (error.code === 'INVALID_STATUS') {
-			return sendError(reply, 400, error.code, 'Invalid status provided for update.', { field: 'status' });
-		}
-		if (error.code === 'USER_NOT_FOUND') {
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
-		}
+		switch (error.code) {
+			case 'NO_STATUS_PROVIDED':
+				return sendError(reply, 400, error.code, 'No status provided for update.', { field: 'status' });
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			case 'INVALID_STATUS':
+				return sendError(reply, 400, error.code, 'Invalid status provided for update.', { field: 'status' });
+
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 }
 

@@ -16,13 +16,16 @@ const getUserByIdHandler = async (request: FastifyRequest<{ Params: userByIdDTO 
 
 	}
 	catch (error: any) {
-		if (error.code === 'USER_ID_REQUIRED')
-			return sendError(reply, 400, error.code, 'Parameter "userId" is required.', { field: 'userId' });
+		switch (error.code) {
+			case 'USER_ID_REQUIRED':
+				return sendError(reply, 400, error.code, 'Parameter "userId" is required.', { field: 'userId' });
 
-		if (error.code === 'USER_NOT_FOUND')
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 }
 

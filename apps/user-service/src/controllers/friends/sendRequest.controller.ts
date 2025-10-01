@@ -25,6 +25,7 @@ const sendRequestHandler = async (request: AuthRequest<undefined, undefined, sen
 				return sendError(reply, 400, error.code, 'You cannot send a request to yourself.');
 			case 'ALREADY_SENT':
 				return sendError(reply, 409, error.code, 'A request already exists between these users.');
+
 			default:
 				return sendError(reply, 400, error.code, 'Bad request.');
 		}
