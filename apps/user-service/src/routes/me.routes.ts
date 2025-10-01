@@ -5,7 +5,7 @@ import {
 	updateUserHandler,
 	deleteUserHandler,
 	updateStatusHandler
-} from 'src/controllers/me/index.js'
+} from '@controllers/me/index.js'
 
 const meRoutes = async (app: FastifyInstance) => {
 	app.get('/', me.getCurrentUser, getCurrentUserHandler);

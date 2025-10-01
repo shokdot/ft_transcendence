@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import { updateUserStatus } from 'src/services/me/index.js';
+import { updateUserStatus } from '@services/me/index.js';
 import { updateStatusDTO } from "src/dto/update-status.dto.js";
 import { userStatus } from 'src/types/userStatus.js';
 import sendError from "@core/utils/sendError.js";

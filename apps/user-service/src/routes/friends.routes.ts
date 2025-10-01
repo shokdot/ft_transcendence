@@ -5,7 +5,7 @@ import {
 	sendRequestHandler,
 	acceptRequestHandler,
 	deleteRequestHandler
-} from 'src/controllers/friends/index.js'
+} from '@controllers/friends/index.js'
 
 const friendsRoutes = async (app: FastifyInstance) => {
 	app.get('/', { preHandler: authenticate }, listFriendsHandler);

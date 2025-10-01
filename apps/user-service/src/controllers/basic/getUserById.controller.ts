@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { getUserById } from 'src/services/basic/index.js';
+import { getUserById } from '@services/basic/index.js';
 import { userByIdDTO } from "src/dto/user-by-id.dto.js";
 import sendError from "@core/utils/sendError.js";
 

@@ -4,7 +4,7 @@ import {
 	getBlockedHandler,
 	blockUserHandler,
 	unblockUserHandler,
-} from 'src/controllers/blocked/index.js'
+} from '@controllers/blocked/index.js'
 // import { blocked } from "src/schemas/index.js"; // we’ll define schemas after
 
 const blockedRoutes = async (app: FastifyInstance) => {

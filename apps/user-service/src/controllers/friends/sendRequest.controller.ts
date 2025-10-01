@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { sendRequestDTO } from "src/dto/send-friend-request.dto.js";
-import { sendRequest } from "src/services/friends/index.js"
+import { sendRequest } from "@services/friends/index.js"
 import { AuthRequest } from "@core/types/authRequest.js";
 import { sendError } from "@core/index.js";
 

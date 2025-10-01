@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from "@core/types/authRequest.js";
-import { unblockUser } from "src/services/blocked/index.js";
+import { unblockUser } from "@services/blocked/index.js";
 import sendError from "@core/utils/sendError.js";
 
 const unblockUserHandler = async (request: AuthRequest, reply: FastifyReply) => {

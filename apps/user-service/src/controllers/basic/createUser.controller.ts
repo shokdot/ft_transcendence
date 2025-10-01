@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { createUserDTO } from 'src/dto/create-user.dto.js';
-import { createUser } from 'src/services/basic/index.js';
+import { createUser } from '@services/basic/index.js';
 import sendError from '@core/utils/sendError.js';
 
 const createUserHandler = async (request: FastifyRequest<{ Body: createUserDTO }>, reply: FastifyReply) => {

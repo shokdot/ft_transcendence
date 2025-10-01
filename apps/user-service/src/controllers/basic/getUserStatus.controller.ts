@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import { getUserStatus } from 'src/services/basic/index.js';
+import { getUserStatus } from '@services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
 const getUserStatusHandler = async (request: AuthRequest, reply: FastifyReply) => {

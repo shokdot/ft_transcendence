@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import { updateAvatar } from 'src/services/avatar/index.js'
+import { updateAvatar } from '@services/avatar/index.js'
 import sendError from "@core/utils/sendError.js";
 import getAvatarUrl from "src/utils/avatar.js";
 

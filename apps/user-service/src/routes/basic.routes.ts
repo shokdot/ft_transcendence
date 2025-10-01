@@ -1,12 +1,12 @@
 import { FastifyInstance } from "fastify";
-import { basic } from 'src/schemas/index.js'
+import { basic } from '@schemas/index.js'
 import {
 	createUserHandler,
 	getUserByIdHandler,
 	getUserStatusHandler,
 	getUserByNameHandler,
 	searchUserHandler
-} from 'src/controllers/basic/index.js'
+} from '@controllers/basic/index.js'
 
 const basicRoutes = async (app: FastifyInstance) => {
 	app.post('/', basic.createUser, createUserHandler);

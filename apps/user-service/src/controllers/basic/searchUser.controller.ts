@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import { searchUser } from 'src/services/basic/index.js';
+import { searchUser } from '@services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
 const searchUserHandler = async (request: AuthRequest, reply: FastifyReply) => {

@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from '@core/types/authRequest.js';
-import { getUserByName } from 'src/services/basic/index.js';
+import { getUserByName } from '@services/basic/index.js';
 import sendError from "@core/utils/sendError.js";
 
 const getUserByNameHandler = async (request: AuthRequest, reply: FastifyReply) => {

@@ -1,7 +1,7 @@
-import { AuthRequest } from "@core/types/authRequest.js";
 import { FastifyReply } from "fastify";
+import { AuthRequest } from "@core/types/authRequest.js";
 import { sendError } from "@core/index.js";
-import { listFriends } from 'src/services/friends/index.js'
+import { listFriends } from '@services/friends/index.js'
 
 
 const listFriendsHandler = async (requst: AuthRequest<undefined, { status?: string }>, reply: FastifyReply) => {
