@@ -16,11 +16,14 @@ const getCurrentUserHandler = async (request: AuthRequest, reply: FastifyReply) 
 
 	}
 	catch (error: any) {
+		switch (error.code) {
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 
-		if (error.code === 'USER_NOT_FOUND')
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 	}
 }
 

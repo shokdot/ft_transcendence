@@ -15,13 +15,16 @@ const forgotPassHandler = async (request: FastifyRequest<{ Body: forgotPasswordD
 
 
 	} catch (error: any) {
-		if (error.code === 'USER_NOT_FOUND') {
-			return sendError(reply, 404, error.code, 'You are not registered yet.', { field: 'email' })
+		switch (error.code) {
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'You are not registered yet.', { field: 'email' });
+
+			case 'OAUTH_USER':
+				return sendError(reply, 400, error.code, 'This account was created using an OAuth provider.');
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
-		if (error.code === 'OAUTH_USER') {
-			return sendError(reply, 400, error.code, 'This account was created using an OAuth provider.')
-		}
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 }
 

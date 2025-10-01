@@ -29,16 +29,16 @@ const refreshTokenHandler = async (request: FastifyRequest, reply: FastifyReply)
 
 	}
 	catch (error: any) {
+		switch (error.code) {
+			case 'REFRESH_TOKEN_MISSING':
+				return sendError(reply, 401, error.code, 'No refresh token provided', { field: 'refreshToken' });
 
-		if (error.code === 'REFRESH_TOKEN_MISSING') {
-			return sendError(reply, 401, error.code, 'No refresh token provided', { field: 'refreshToken' });
+			case 'INVALID_REFRESH_TOKEN':
+				return sendError(reply, 403, error.code, 'Invalid or expired refresh token', { field: 'refreshToken' });
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
-
-		if (error.code === 'INVALID_REFRESH_TOKEN') {
-			return sendError(reply, 403, error.code, 'Invalid or expired refresh token', { field: 'refreshToken' });
-		}
-
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 }
 

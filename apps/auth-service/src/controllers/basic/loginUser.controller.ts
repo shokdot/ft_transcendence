@@ -36,14 +36,17 @@ const loginUserHandler = async (request: FastifyRequest<{ Body: loginDTO }>, rep
 
 
 	} catch (error: any) {
-		if (error.code === 'INVALID_CREDENTIALS' || error.code === 'NOT_REGISTERED') {
-			return sendError(reply, 401, error.code, 'Invalid email or password', { field: "login/password" })
-		}
-		if (error.code == 'EMAIL_NOT_VERIFIED') {
-			return sendError(reply, 403, error.code, 'Email address not verfied', { field: 'email' });
-		}
+		switch (error.code) {
+			case 'INVALID_CREDENTIALS':
+			case 'NOT_REGISTERED':
+				return sendError(reply, 401, error.code, 'Invalid email or password', { field: "login/password" });
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
+			case 'EMAIL_NOT_VERIFIED':
+				return sendError(reply, 403, error.code, 'Email address not verified', { field: 'email' });
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 }
 

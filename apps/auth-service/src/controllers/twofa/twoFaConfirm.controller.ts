@@ -18,21 +18,22 @@ const twoFaConfirmHandler = async (request: AuthRequest<twoFaDTO>, reply: Fastif
 		});
 	}
 	catch (error) {
-		if (error.code === 'USER_NOT_FOUND') {
-			return sendError(reply, 404, error.code, 'The requested user does not exist.');
-		}
+		switch (error.code) {
+			case 'USER_NOT_FOUND':
+				return sendError(reply, 404, error.code, 'The requested user does not exist.');
 
-		if (error.code === 'NO_TOKEN') {
-			return sendError(reply, 400, error.code, '2FA token is missing', { field: 'token' });
-		}
-		if (error.code === 'NOT_2FA_INITIALIZED') {
-			return sendError(reply, 400, error.code, '2FA authentication not initialized', { field: 'token' });
-		}
-		if (error.code === 'INVALID_2FA_TOKEN') {
-			return sendError(reply, 400, error.code, '2FA token is invalid', { field: 'token' });
-		}
+			case 'NO_TOKEN':
+				return sendError(reply, 400, error.code, '2FA token is missing', { field: 'token' });
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			case 'NOT_2FA_INITIALIZED':
+				return sendError(reply, 400, error.code, '2FA authentication not initialized', { field: 'token' });
+
+			case 'INVALID_2FA_TOKEN':
+				return sendError(reply, 400, error.code, '2FA token is invalid', { field: 'token' });
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 }
 

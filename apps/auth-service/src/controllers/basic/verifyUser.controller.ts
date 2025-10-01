@@ -13,13 +13,16 @@ const verifyUserHandler = async (request: FastifyRequest<{ Querystring: verifyUs
 		});
 
 	} catch (error: any) {
-		if (error.code === 'MISSING_TOKEN') {
-			return sendError(reply, 400, error.code, 'Verification token is required', { field: 'token' });
+		switch (error.code) {
+			case 'MISSING_TOKEN':
+				return sendError(reply, 400, error.code, 'Verification token is required', { field: 'token' });
+
+			case 'INVALID_TOKEN':
+				return sendError(reply, 400, error.code, 'Invalid or expired verification token', { field: 'token' });
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
-		if (error.code === 'INVALID_TOKEN') {
-			return sendError(reply, 400, error.code, 'Invalid or expired verification token', { field: 'token' });
-		}
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 };
 

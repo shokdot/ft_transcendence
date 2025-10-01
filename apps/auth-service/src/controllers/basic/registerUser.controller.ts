@@ -19,19 +19,19 @@ const registerUserHandler = async (request: FastifyRequest<{ Body: registerDTO }
 
 		});
 	} catch (error: any) {
-		if (error.code === 'EMAIL_EXISTS') {
-			return sendError(reply, 409, error.code, 'Email is already registered', { field: 'email' })
+		switch (error.code) {
+			case 'EMAIL_EXISTS':
+				return sendError(reply, 409, error.code, 'Email is already registered', { field: 'email' });
+			case 'USERNAME_EXISTS':
+				return sendError(reply, 409, error.code, 'Username is already taken', { field: 'username' });
+			case 'WEAK_PASSWORD':
+				return sendError(reply, 400, error.code, 'Password is too weak', { field: 'password' });
+			case 'USER_SERVICE_ERROR':
+				return sendError(reply, 503, error.code, 'Failed to communicate with user service.');
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
 		}
-		if (error.code === 'USERNAME_EXISTS') {
-			return sendError(reply, 409, error.code, 'Username is already taken', { field: 'username' })
-		}
-		if (error.code === 'WEAK_PASSWORD') {
-			return sendError(reply, 400, error.code, 'Password is too weak', { field: 'password' })
-		}
-		if (error.code === 'USER_SERVICE_ERROR') {
-			return sendError(reply, 503, error.code, 'Failed to communicate with user service.')
-		}
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
 	}
 }
 

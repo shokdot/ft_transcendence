@@ -36,21 +36,22 @@ const oauthLoginHandler = () => {
 
 		}
 		catch (error: any) {
-			if (error.code === 'NO_OAUTH_TOKEN') {
-				return sendError(reply, 400, error.code, 'Failed to obtain OAuth token from GitHub.')
-			}
-			if (error.code === 'GITHUB_API_ERROR') {
-				return sendError(reply, 502, error.code, 'Failed to fetch user profile or emails from GitHub API.')
-			}
-			if (error.code === 'NO_VERIFIED_EMAIL') {
-				return sendError(reply, 400, error.code, 'No verified primary email found in GitHub account.')
-			}
-			if (error.code === 'USER_SERVICE_ERROR') {
-				return sendError(reply, 503, error.coded, 'Failed to communicate with user service.')
-			}
+			switch (error.code) {
+				case 'NO_OAUTH_TOKEN':
+					return sendError(reply, 400, error.code, 'Failed to obtain OAuth token from GitHub.');
 
-			return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
+				case 'GITHUB_API_ERROR':
+					return sendError(reply, 502, error.code, 'Failed to fetch user profile or emails from GitHub API.');
 
+				case 'NO_VERIFIED_EMAIL':
+					return sendError(reply, 400, error.code, 'No verified primary email found in GitHub account.');
+
+				case 'USER_SERVICE_ERROR':
+					return sendError(reply, 503, error.code, 'Failed to communicate with user service.');
+
+				default:
+					return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+			}
 		}
 	};
 };

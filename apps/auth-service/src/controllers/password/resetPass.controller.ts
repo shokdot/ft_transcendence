@@ -15,14 +15,16 @@ const resetPassHandler = async (request: FastifyRequest<{ Body: resetPasswordDTO
 
 
 	} catch (error: any) {
-		if (error.code === 'INVALID_TOKEN') {
-			return sendError(reply, 400, error.code, 'Invalid or expired token provided.', { field: 'token' })
-		}
-		if (error.code === 'WEAK_PASSWORD') {
-			return sendError(reply, 400, error.code, 'Password is too weak', { field: 'password' })
-		}
+		switch (error.code) {
+			case 'INVALID_TOKEN':
+				return sendError(reply, 400, error.code, 'Invalid or expired token provided.', { field: 'token' });
 
-		return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error')
+			case 'WEAK_PASSWORD':
+				return sendError(reply, 400, error.code, 'Password is too weak', { field: 'password' });
+
+			default:
+				return sendError(reply, 500, 'INTERNAL_SERVER_ERROR', 'Internal server error');
+		}
 	}
 }
 
