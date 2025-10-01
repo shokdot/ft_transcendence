@@ -1,3 +1,4 @@
+import { errorResponseSchema } from "@core/schemas/error.schema.js";
 import { RouteShorthandOptions } from "fastify";
 
 const refreshSchema: RouteShorthandOptions = {
@@ -24,62 +25,10 @@ const refreshSchema: RouteShorthandOptions = {
 					message: { type: 'string' }
 				},
 			},
-			401: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
-			403: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
-			500: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
+			401: errorResponseSchema,
+			403: errorResponseSchema,
+			500: errorResponseSchema
 		}
-
 	}
 }
 

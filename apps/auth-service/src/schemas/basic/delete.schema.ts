@@ -1,4 +1,5 @@
 import { RouteShorthandOptions } from "fastify";
+import { errorResponseSchema } from '@core/schemas/error.schema.js'
 import authenticate from '@core/middlewares/authenticate.middleware.js';
 
 const deleteUserSchema: RouteShorthandOptions = {
@@ -17,80 +18,13 @@ const deleteUserSchema: RouteShorthandOptions = {
 					message: { type: 'string' }
 				},
 			},
-			401: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
-			403: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
-			404: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
-			500: {
-				type: 'object',
-				required: ['status', 'error'],
-				additionalProperties: false,
-				properties: {
-					status: { type: 'string', enum: ['error'] },
-					error: {
-						type: 'object',
-						required: ['code', 'message', 'details'],
-						properties: {
-							code: { type: 'string' },
-							message: { type: 'string' },
-							details: { type: ['object', 'null'], additionalProperties: true, },
-						},
-						additionalProperties: false,
-					},
-				},
-			},
+
+			401: errorResponseSchema,
+			403: errorResponseSchema,
+			404: errorResponseSchema,
+			500: errorResponseSchema
 		},
-	}
+	},
 };
 
 export default deleteUserSchema;
