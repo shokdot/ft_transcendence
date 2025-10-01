@@ -1,7 +1,7 @@
 import { FastifyInstance } from "fastify";
-import { oauthLoginHandler } from 'src/controllers/oauth/index.js'
+import { oauthLoginHandler } from '@controllers/oauth/index.js'
 import fastifyOauth2 from "@fastify/oauth2";
-import { oauth } from "src/schemas/index.js";
+import { oauth } from "@schemas/index.js";
 
 const oauthRoutes = async (app: FastifyInstance) => {
 	app.register(fastifyOauth2, {

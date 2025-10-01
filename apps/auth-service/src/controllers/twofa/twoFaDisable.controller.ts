@@ -1,6 +1,6 @@
 import { FastifyReply } from 'fastify'
 import sendError from '@core/utils/sendError.js';
-import { twoFaDisable } from 'src/service/twofa/index.js';
+import { twoFaDisable } from '@services/twofa/index.js';
 import { AuthRequest } from '@core/types/authRequest.js';
 
 const twoFaDisableHandler = async (request: AuthRequest, reply: FastifyReply) => {

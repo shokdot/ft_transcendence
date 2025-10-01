@@ -1,10 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { password } from "src/schemas/index.js";
+import { password } from "@schemas/index.js";
 import {
 	forgotPassHandler,
 	resetPassHandler,
 	changePassHandler,
-} from 'src/controllers/password/index.js'
+} from '@controllers/password/index.js'
 
 const passwordRoutes = async (app: FastifyInstance) => {
 	app.post('/forgot', password.forgotPass, forgotPassHandler);

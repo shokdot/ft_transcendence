@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import sendError from '@core/utils/sendError.js';
 import loginDTO from 'src/dto/login.dto.js';
-import { loginUser } from 'src/service/basic/index.js'
+import { loginUser } from '@services/basic/index.js'
 
 const loginUserHandler = async (request: FastifyRequest<{ Body: loginDTO }>, reply: FastifyReply) => {
 	try {

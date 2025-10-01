@@ -1,5 +1,5 @@
 import { FastifyReply } from 'fastify';
-import { changePass } from 'src/service/password/index.js'
+import { changePass } from '@services/password/index.js'
 import { AuthRequest } from '@core/types/authRequest.js';
 import sendError from '@core/utils/sendError.js';
 import changePasswordDTO from 'src/dto/change-password.dto.js';

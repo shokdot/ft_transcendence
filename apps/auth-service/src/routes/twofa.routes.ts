@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
-import { twoFa } from "src/schemas/index.js";
+import { twoFa } from "@schemas/index.js";
 import {
 	twoFaSetupHandler,
 	twoFaConfirmHandler,
 	twoFaVerifyHandler,
 	twoFaDisableHandler,
-} from 'src/controllers/twofa/index.js';
+} from '@controllers/twofa/index.js';
 
 const twofaRoutes = async (app: FastifyInstance) => {
 	app.post('/setup', twoFa.setup, twoFaSetupHandler);

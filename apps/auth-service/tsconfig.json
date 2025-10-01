@@ -10,6 +10,15 @@
 		"paths": {
 			"@core/*": [
 				"../../libs/core/src/*"
+			],
+			"@controllers/*": [
+				"src/controllers/*"
+			],
+			"@services/*": [
+				"src/services/*"
+			],
+			"@schemas/*": [
+				"src/schemas/*"
 			]
 		}
 	},

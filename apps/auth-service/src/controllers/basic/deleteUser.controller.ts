@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify";
-import { deleteUser } from "src/service/basic/index.js";
+import { deleteUser } from "@services/basic/index.js";
 import sendError from '@core/utils/sendError.js';
 import { AuthRequest } from "@core/types/authRequest.js";
 

@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import sendError from '@core/utils/sendError.js';
-import { resetPass } from 'src/service/password/index.js'
+import { resetPass } from '@services/password/index.js'
 import resetPasswordDTO from 'src/dto/reset-password.dto.js';
 
 const resetPassHandler = async (request: FastifyRequest<{ Body: resetPasswordDTO }>, reply: FastifyReply) => {

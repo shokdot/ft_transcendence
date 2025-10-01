@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import { basic } from 'src/schemas/index.js';
+import { basic } from '@schemas/index.js';
 import {
 	getCurrentUserHandler,
 	verifyUserHandler,
@@ -8,7 +8,7 @@ import {
 	registerUserHandler,
 	logoutUserHandler,
 	deleteUserHandler
-} from 'src/controllers/basic/index.js'
+} from '@controllers/basic/index.js'
 
 const basicAuthRoutes = async (app: FastifyInstance) => {
 	app.get('/me', basic.getCurrentUser, getCurrentUserHandler);

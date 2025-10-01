@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import sendError from '@core/utils/sendError.js';
-import { oauthLogin } from "src/service/oauth/index.js";
+import { oauthLogin } from "@services/oauth/index.js";
 
 declare module "fastify" {
 	interface FastifyInstance {

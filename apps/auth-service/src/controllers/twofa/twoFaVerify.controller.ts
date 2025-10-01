@@ -1,6 +1,6 @@
 import { FastifyReply } from "fastify";
 import { AuthRequest } from "@core/types/authRequest.js";
-import { twoFaVerify } from "src/service/twofa/index.js";
+import { twoFaVerify } from "@services/twofa/index.js";
 import sendError from '@core/utils/sendError.js';
 import twoFaDTO from "src/dto/twofa.dto.js";
 

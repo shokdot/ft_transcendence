@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import sendError from '@core/utils/sendError.js';
-import { forgotPass } from 'src/service/password/index.js'
+import { forgotPass } from '@services/password/index.js'
 import forgotPasswordDTO from 'src/dto/forgot-password.dto.js';
 
 const forgotPassHandler = async (request: FastifyRequest<{ Body: forgotPasswordDTO }>, reply: FastifyReply) => {

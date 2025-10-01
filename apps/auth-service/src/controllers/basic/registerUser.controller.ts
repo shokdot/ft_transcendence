@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { registerUser } from 'src/service/basic/index.js'
+import { registerUser } from '@services/basic/index.js'
 import sendError from '@core/utils/sendError.js';
 import registerDTO from 'src/dto/register.dto.js';
 
