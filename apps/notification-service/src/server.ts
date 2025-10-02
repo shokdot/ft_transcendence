@@ -10,7 +10,7 @@ const app: FastifyInstance = buildApp(SERVICE_NAME);
 app.register(ws);
 
 async function registerRoutes(app: FastifyInstance) {
-	await app.register(healthRoutes, { prefix: API_PREFIX });
+	await app.register(healthRoutes, { prefix: `${API_PREFIX}/notifications` });
 	await app.register(notificationRoutes, { prefix: `${API_PREFIX}/notifications` });
 }
 
