@@ -1,0 +1,12 @@
+[submodule "apps/core"]
+	path = apps/core
+	url = git@github.com:shokdot/core.git
+[submodule "apps/auth-service"]
+	path = apps/auth-service
+	url = git@github.com:shokdot/auth-service.git
+[submodule "apps/user-service"]
+	path = apps/user-service
+	url = git@github.com:shokdot/user-service.git
+[submodule "apps/notification-service"]
+	path = apps/notification-service
+	url = git@github.com:shokdot/notification-service.git

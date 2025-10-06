@@ -1,0 +1,44 @@
+# Node.js dependencies
+node_modules/
+
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Prisma
+**/prisma/migrations/
+prisma/dev.db
+prisma/.DS_Store
+**/prisma/generated/
+
+# Build output
+dist/
+build/
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Database files
+*.db
+
+*package-lock.json
+
+tsconfig.tsbuildinfo

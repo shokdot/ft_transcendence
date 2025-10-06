@@ -1,0 +1,28 @@
+services:
+  auth-service:
+    container_name: auth_service
+    build:
+      context: .
+      dockerfile: apps/auth-service/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+  user-service:
+    container_name: user-service
+    build:
+      context: .
+      dockerfile: apps/user-service/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3001:3001"
+  notification-service:
+    container_name: notification-service
+    build:
+      context: .
+      dockerfile: apps/notification-service/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3002:3002"
