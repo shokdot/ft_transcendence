@@ -6,8 +6,8 @@ services:
       dockerfile: apps/auth-service/Dockerfile
     env_file:
       - .env
-    ports:
-      - "3000:3000"
+    networks:
+      - transcendence
   user-service:
     container_name: user-service
     build:
@@ -15,8 +15,8 @@ services:
       dockerfile: apps/user-service/Dockerfile
     env_file:
       - .env
-    ports:
-      - "3001:3001"
+    networks:
+      - transcendence
   notification-service:
     container_name: notification-service
     build:
@@ -24,5 +24,22 @@ services:
       dockerfile: apps/notification-service/Dockerfile
     env_file:
       - .env
+    networks:
+      - transcendence
+  nginx:
+    image: nginx:latest
+    container_name: gateway
     ports:
-      - "3002:3002"
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - transcendence
+    depends_on:
+      - auth-service
+      - user-service
+      - notification-service
+
+networks:
+  transcendence:
+    driver: bridge
