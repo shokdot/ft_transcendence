@@ -9,7 +9,6 @@ npm-debug.log*
 .env.*.local
 
 # Prisma
-**/prisma/migrations/
 prisma/dev.db
 prisma/.DS_Store
 **/prisma/generated/
