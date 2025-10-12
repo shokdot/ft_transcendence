@@ -2,12 +2,12 @@ services:
   auth-service:
     container_name: auth_service_dev
     build:
-      context: .
-      dockerfile: apps/auth-service/Dockerfile.dev
+      context: ./apps
+      dockerfile: auth-service/Dockerfile.dev
     env_file:
       - .env
     volumes:
-      - ./apps/auth-service/src:/app/apps/auth-service/src
+      - ./apps/auth-service/src:/apps/auth-service/src
     ports:
       - "3000:3000"
     networks:
@@ -19,12 +19,12 @@ services:
   user-service:
     container_name: user_service_dev
     build:
-      context: .
-      dockerfile: apps/user-service/Dockerfile.dev
+      context: ./apps
+      dockerfile: user-service/Dockerfile.dev
     env_file:
       - .env
     volumes:
-      - ./apps/user-service/src:/app/apps/user-service/src
+      - ./apps/user-service/src:/apps/user-service/src
     ports:
       - "3001:3001"
     networks:
@@ -36,12 +36,12 @@ services:
   notification-service:
     container_name: notification_service_dev
     build:
-      context: .
-      dockerfile: apps/notification-service/Dockerfile.dev
+      context: ./apps
+      dockerfile: notification-service/Dockerfile.dev
     env_file:
       - .env
     volumes:
-      - ./apps/notification-service/src:/app/apps/notification-service/src
+      - ./apps/notification-service/src:/apps/notification-service/src
     ports:
       - "3002:3002"
     networks:
