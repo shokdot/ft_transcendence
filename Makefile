@@ -20,6 +20,12 @@ dev-up:
 dev-down:
 	docker compose -f docker-compose.dev.yml down
 
+dev-build:
+	docker compose -f docker-compose.dev.yml up -d --build
+
 re:
 	docker compose down
 	docker compose up -d --build
+
+prune:
+	docker system prune -a
