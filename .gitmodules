@@ -10,3 +10,6 @@
 [submodule "apps/notification-service"]
 	path = apps/notification-service
 	url = git@github.com:shokdot/notification-service.git
+[submodule "apps/game-service"]
+	path = apps/game-service
+	url = git@github.com:shokdot/game-service.git
