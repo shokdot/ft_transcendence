@@ -10,6 +10,7 @@ services:
       - ./apps/auth-service/src:/apps/auth-service/src
     ports:
       - "3000:3000"
+      - "5001:5555"
     networks:
       - transcendence
     environment:
@@ -27,6 +28,7 @@ services:
       - ./apps/user-service/src:/apps/user-service/src
     ports:
       - "3001:3001"
+      - "5002:5555"
     networks:
       - transcendence
     environment:
