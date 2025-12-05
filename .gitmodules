@@ -13,3 +13,6 @@
 [submodule "apps/game-service"]
 	path = apps/game-service
 	url = git@github.com:shokdot/game-service.git
+[submodule "apps/frontend"]
+	path = apps/frontend
+	url = https://github.com/shokdot/frontend.git
