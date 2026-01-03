@@ -38,6 +38,9 @@ Thumbs.db
 # Database files
 *.db
 
+# Grafana data
+/monitoring/grafana/data/
+
 *package-lock.json
 
 tsconfig.tsbuildinfo
