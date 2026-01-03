@@ -65,6 +65,8 @@ services:
       - "7900:3000"
     env_file:
       - .env
+    volumes:
+      - ./monitoring/grafana/data:/var/lib/grafana
     depends_on:
       - prometheus
     networks:
