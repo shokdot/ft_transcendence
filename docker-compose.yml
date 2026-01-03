@@ -1,11 +1,13 @@
 services:
   auth-service:
-    container_name: auth_service
+    container_name: auth-service
     build:
       context: ./apps
       dockerfile: auth-service/Dockerfile
     env_file:
       - .env
+    expose:
+      - "3000"
     networks:
       - transcendence
   user-service:
@@ -15,6 +17,8 @@ services:
       dockerfile: user-service/Dockerfile
     env_file:
       - .env
+    expose:
+      - "3001"
     networks:
       - transcendence
   notification-service:
@@ -24,6 +28,8 @@ services:
       dockerfile: notification-service/Dockerfile
     env_file:
       - .env
+    expose:
+      - "3002"
     networks:
       - transcendence
   frontend:
@@ -43,6 +49,15 @@ services:
       - auth-service
       # - user-service
       - notification-service
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - transcendence
 
 networks:
   transcendence:
