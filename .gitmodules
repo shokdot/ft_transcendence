@@ -16,3 +16,6 @@
 [submodule "apps/frontend"]
 	path = apps/frontend
 	url = https://github.com/shokdot/frontend.git
+[submodule "apps/room-service"]
+	path = apps/room-service
+	url = git@github.com:shokdot/room-service.git
