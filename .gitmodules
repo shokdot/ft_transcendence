@@ -19,3 +19,6 @@
 [submodule "apps/room-service"]
 	path = apps/room-service
 	url = git@github.com:shokdot/room-service.git
+[submodule "apps/stats-service"]
+	path = apps/stats-service
+	url = https://github.com/shokdot/stats-service
