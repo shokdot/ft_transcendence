@@ -21,6 +21,8 @@ services:
       - .env
     expose:
       - "3001"
+    volumes:
+      - ./apps/user-service/data:/apps/user-service/data
     networks:
       - transcendence
   notification-service:
@@ -32,6 +34,8 @@ services:
       - .env
     expose:
       - "3002"
+    volumes:
+      - ./apps/notification-service/data:/apps/notification-service/data
     networks:
       - transcendence
   frontend:
