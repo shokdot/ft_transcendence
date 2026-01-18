@@ -55,6 +55,40 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+  game-service:
+    container_name: game_service_dev
+    build:
+      context: ./apps
+      dockerfile: game-service/Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./apps/game-service/src:/apps/game-service/src
+    ports:
+      - "3003:3003"
+    networks:
+      - transcendence
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+  room-service:
+    container_name: room_service_dev
+    build:
+      context: ./apps
+      dockerfile: room-service/Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./apps/room-service/src:/apps/room-service/src
+    ports:
+      - "3004:3004"
+    networks:
+      - transcendence
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
 
 networks:
   transcendence:
