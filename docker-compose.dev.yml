@@ -8,7 +8,7 @@ services:
       - .env
     volumes:
       - ./apps/auth-service/src:/apps/auth-service/src
-      - ./apps/auth-service/dev.db:/apps/auth-service/dev.db
+      - ./apps/auth-service/data:/apps/auth-service/data
     ports:
       - "3000:3000"
       - "5001:5555"
