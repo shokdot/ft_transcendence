@@ -27,7 +27,7 @@ services:
       - .env
     volumes:
       - ./apps/user-service/src:/apps/user-service/src
-      - ./apps/user-service/dev.db:/apps/user-service/dev.db
+      - ./apps/user-service/data:/apps/user-service/data
     ports:
       - "3001:3001"
       - "5002:5555"
@@ -46,6 +46,7 @@ services:
       - .env
     volumes:
       - ./apps/notification-service/src:/apps/notification-service/src
+      - ./apps/notification-service/data:/apps/notification-service/data
     ports:
       - "3002:3002"
     networks:
