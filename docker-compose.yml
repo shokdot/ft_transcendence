@@ -100,6 +100,52 @@ services:
       - prometheus
     networks:
       - transcendence
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.19.10
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./logging/elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - transcendence
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:8.19.10
+    ports:
+      - "9201:9201"
+    volumes:
+      - ./logging/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    environment:
+      - "LS_JAVA_OPTS=-Xmx256m -Xms256m"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - transcendence
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.19.10
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVERNAME=kibana
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    networks:
+      - transcendence
 
 networks:
   transcendence:

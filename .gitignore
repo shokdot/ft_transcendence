@@ -41,6 +41,12 @@ Thumbs.db
 # Grafana data
 /monitoring/grafana/data/
 
+# Elasticsearch data
+/logging/elasticsearch/data/
+
+# Kibana data (if you add volumes later)
+/logging/kibana/data/
+
 *package-lock.json
 
 tsconfig.tsbuildinfo
