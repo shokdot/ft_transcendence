@@ -1,0 +1,12 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: default-email
+    receivers:
+      - uid: default-email
+        type: email
+        settings:
+          addresses: "henula09106@gmail.com"
+          singleEmail: true
+

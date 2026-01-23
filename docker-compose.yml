@@ -96,6 +96,8 @@ services:
     volumes:
       - ./monitoring/grafana/data:/var/lib/grafana
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/scripts/substitute-env.sh:/substitute-env.sh
+    entrypoint: ["/bin/sh", "/substitute-env.sh"]
     depends_on:
       - prometheus
     networks:
