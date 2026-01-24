@@ -12,6 +12,8 @@ services:
     ports:
       - "3000:3000"
       - "5001:5555"
+    depends_on:
+      - user-service
     networks:
       - transcendence
     environment:
@@ -49,6 +51,8 @@ services:
       - ./apps/notification-service/data:/apps/notification-service/data
     ports:
       - "3002:3002"
+    depends_on:
+      - user-service
     networks:
       - transcendence
     environment:
@@ -66,6 +70,9 @@ services:
       - ./apps/game-service/src:/apps/game-service/src
     ports:
       - "3003:3003"
+    depends_on:
+      - room-service
+      - user-service
     networks:
       - transcendence
     environment:
@@ -83,6 +90,8 @@ services:
       - ./apps/room-service/src:/apps/room-service/src
     ports:
       - "3004:3004"
+    depends_on:
+      - notification-service
     networks:
       - transcendence
     environment:

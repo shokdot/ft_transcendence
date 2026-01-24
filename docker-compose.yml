@@ -10,6 +10,8 @@ services:
       - "3000"
     volumes:
       - ./apps/auth-service/data:/apps/auth-service/data
+    depends_on:
+      - user-service
     networks:
       - transcendence
   user-service:
@@ -36,6 +38,8 @@ services:
       - "3002"
     volumes:
       - ./apps/notification-service/data:/apps/notification-service/data
+    depends_on:
+      - user-service
     networks:
       - transcendence
   game-service:
@@ -47,6 +51,9 @@ services:
       - .env
     expose:
       - "3003"
+    depends_on:
+      - room-service
+      - user-service
     networks:
       - transcendence
   room-service:
@@ -58,6 +65,8 @@ services:
       - .env
     expose:
       - "3004"
+    depends_on:
+      - notification-service
     networks:
       - transcendence
   frontend:
@@ -75,8 +84,10 @@ services:
       - transcendence
     depends_on:
       - auth-service
-      # - user-service
+      - user-service
       - notification-service
+      - game-service
+      - room-service
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest
