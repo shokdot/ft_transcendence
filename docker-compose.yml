@@ -69,6 +69,21 @@ services:
       - notification-service
     networks:
       - transcendence
+  stats-service:
+    container_name: stats-service
+    build:
+      context: ./apps
+      dockerfile: stats-service/Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "3005"
+    volumes:
+      - ./apps/stats-service/data:/apps/stats-service/data
+    depends_on:
+      - room-service
+    networks:
+      - transcendence
   frontend:
     container_name: frontend
     build:
@@ -88,6 +103,7 @@ services:
       - notification-service
       - game-service
       - room-service
+      - stats-service
   prometheus:
     container_name: prometheus
     image: prom/prometheus:latest

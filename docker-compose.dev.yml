@@ -98,6 +98,27 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
+  stats-service:
+    container_name: stats_service_dev
+    build:
+      context: ./apps
+      dockerfile: stats-service/Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./apps/stats-service/src:/apps/stats-service/src
+      - ./apps/stats-service/data:/apps/stats-service/data
+    ports:
+      - "3005:3005"
+      - "5006:5555"
+    depends_on:
+      - room-service
+    networks:
+      - transcendence
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
 
 networks:
   transcendence:
