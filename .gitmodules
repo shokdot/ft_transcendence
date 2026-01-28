@@ -22,3 +22,6 @@
 [submodule "apps/stats-service"]
 	path = apps/stats-service
 	url = https://github.com/shokdot/stats-service
+[submodule "apps/chat-service"]
+	path = apps/chat-service
+	url = git@github.com:shokdot/chat-service.git
