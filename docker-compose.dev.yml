@@ -11,7 +11,7 @@ services:
       - ./apps/auth-service/data:/apps/auth-service/data
     ports:
       - "3000:3000"
-      - "5001:5555"
+      - "5000:5555"
     depends_on:
       - user-service
     networks:
@@ -32,7 +32,7 @@ services:
       - ./apps/user-service/data:/apps/user-service/data
     ports:
       - "3001:3001"
-      - "5002:5555"
+      - "5001:5555"
     networks:
       - transcendence
     environment:
@@ -51,6 +51,7 @@ services:
       - ./apps/notification-service/data:/apps/notification-service/data
     ports:
       - "3002:3002"
+      - "5002:5555"
     depends_on:
       - user-service
     networks:
@@ -110,6 +111,27 @@ services:
       - ./apps/stats-service/data:/apps/stats-service/data
     ports:
       - "3005:3005"
+      - "5005:5555"
+    depends_on:
+      - room-service
+    networks:
+      - transcendence
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+  chat-service:
+    container_name: chat_service_dev
+    build:
+      context: ./apps
+      dockerfile: chat-service/Dockerfile.dev
+    env_file:
+      - .env
+    volumes:
+      - ./apps/chat-service/src:/apps/chat-service/src
+      - ./apps/chat-service/data:/apps/chat-service/data
+    ports:
+      - "3006:3006"
       - "5006:5555"
     depends_on:
       - room-service

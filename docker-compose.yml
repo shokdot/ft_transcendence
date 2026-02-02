@@ -14,6 +14,8 @@ services:
       - user-service
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
   user-service:
     container_name: user-service
     build:
@@ -27,6 +29,8 @@ services:
       - ./apps/user-service/data:/apps/user-service/data
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
   notification-service:
     container_name: notification-service
     build:
@@ -42,6 +46,8 @@ services:
       - user-service
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
   game-service:
     container_name: game-service
     build:
@@ -56,6 +62,8 @@ services:
       - user-service
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
   room-service:
     container_name: room-service
     build:
@@ -69,6 +77,8 @@ services:
       - notification-service
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
   stats-service:
     container_name: stats-service
     build:
@@ -84,6 +94,23 @@ services:
       - room-service
     networks:
       - transcendence
+    environment:
+      - NODE_ENV=production
+  chat-service:
+    container_name: chat-service
+    build:
+      context: ./apps
+      dockerfile: chat-service/Dockerfile
+    env_file:
+      - .env
+    expose:
+      - "3006"
+    depends_on:
+      - room-service
+    networks:
+      - transcendence
+    environment:
+      - NODE_ENV=production
   frontend:
     container_name: frontend
     build:
