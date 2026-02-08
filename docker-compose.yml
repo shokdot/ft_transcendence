@@ -125,13 +125,13 @@ services:
   nginx:
     container_name: nginx
     build:
-      context: ./apps/frontend
-      dockerfile: Dockerfile.nginx
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./apps/frontend/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
       - transcendence
     depends_on:
