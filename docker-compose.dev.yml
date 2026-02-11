@@ -148,8 +148,8 @@ services:
     build:
       context: ./apps/frontend
       dockerfile: Dockerfile.dev
-	env_file:
-		- .env
+    env_file:
+      - .env
     volumes:
       - ./apps/frontend:/app
       - /app/node_modules
@@ -159,11 +159,11 @@ services:
     depends_on:
       - auth-service
       - user-service
-	  - stats-service
-	  - chat-service
-	  - room-service
-	  - game-service
-	  - notification-service
+      - stats-service
+      - chat-service
+      - room-service
+      - game-service
+      - notification-service
     networks:
       - transcendence
     environment:
