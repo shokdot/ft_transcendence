@@ -11,7 +11,7 @@ services:
       - ./apps/auth-service/data:/apps/auth-service/data
     ports:
       - "3000:3000"
-      - "5000:5555"
+      - "7800:5555"
     depends_on:
       - user-service
     networks:
@@ -30,9 +30,10 @@ services:
     volumes:
       - ./apps/user-service/src:/apps/user-service/src
       - ./apps/user-service/data:/apps/user-service/data
+      - ./apps/user-service/prisma:/apps/user-service/prisma
     ports:
       - "3001:3001"
-      - "5001:5555"
+      - "7801:5555"
     networks:
       - transcendence
     environment:
@@ -51,7 +52,7 @@ services:
       - ./apps/notification-service/data:/apps/notification-service/data
     ports:
       - "3002:3002"
-      - "5002:5555"
+      - "7802:5555"
     depends_on:
       - user-service
     networks:
@@ -111,7 +112,7 @@ services:
       - ./apps/stats-service/data:/apps/stats-service/data
     ports:
       - "3005:3005"
-      - "5005:5555"
+      - "7805:5555"
     depends_on:
       - room-service
     networks:
@@ -132,7 +133,7 @@ services:
       - ./apps/chat-service/data:/apps/chat-service/data
     ports:
       - "3006:3006"
-      - "5006:5555"
+      - "7806:5555"
     depends_on:
       - room-service
     networks:
@@ -147,12 +148,22 @@ services:
     build:
       context: ./apps/frontend
       dockerfile: Dockerfile.dev
+	env_file:
+		- .env
     volumes:
-      - ./apps/frontend/app:/app/app
-      - ./apps/frontend/public:/app/public
-      - ./apps/frontend/next.config.ts:/app/next.config.ts
+      - ./apps/frontend:/app
+      - /app/node_modules
+      - /app/.next
     ports:
       - "3010:3010"
+    depends_on:
+      - auth-service
+      - user-service
+	  - stats-service
+	  - chat-service
+	  - room-service
+	  - game-service
+	  - notification-service
     networks:
       - transcendence
     environment:
