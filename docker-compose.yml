@@ -3,15 +3,19 @@ services:
     container_name: auth-service
     build:
       context: ./apps
-      dockerfile: auth-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: auth-service
+        PORT: 3000
     env_file:
       - .env
-    expose:
-      - "3000"
     volumes:
       - ./apps/auth-service/data:/apps/auth-service/data
     depends_on:
-      - user-service
+      user-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -20,13 +24,17 @@ services:
     container_name: user-service
     build:
       context: ./apps
-      dockerfile: user-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: user-service
+        PORT: 3001
     env_file:
       - .env
-    expose:
-      - "3001"
     volumes:
       - ./apps/user-service/data:/apps/user-service/data
+    depends_on:
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -35,15 +43,19 @@ services:
     container_name: notification-service
     build:
       context: ./apps
-      dockerfile: notification-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: notification-service
+        PORT: 3002
     env_file:
       - .env
-    expose:
-      - "3002"
     volumes:
       - ./apps/notification-service/data:/apps/notification-service/data
     depends_on:
-      - user-service
+      user-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -52,14 +64,19 @@ services:
     container_name: game-service
     build:
       context: ./apps
-      dockerfile: game-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: game-service
+        PORT: 3003
     env_file:
       - .env
-    expose:
-      - "3003"
     depends_on:
-      - room-service
-      - user-service
+      room-service:
+        condition: service_started
+      user-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -68,13 +85,17 @@ services:
     container_name: room-service
     build:
       context: ./apps
-      dockerfile: room-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: room-service
+        PORT: 3004
     env_file:
       - .env
-    expose:
-      - "3004"
     depends_on:
-      - notification-service
+      notification-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -83,15 +104,19 @@ services:
     container_name: stats-service
     build:
       context: ./apps
-      dockerfile: stats-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: stats-service
+        PORT: 3005
     env_file:
       - .env
-    expose:
-      - "3005"
     volumes:
       - ./apps/stats-service/data:/apps/stats-service/data
     depends_on:
-      - room-service
+      room-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -100,13 +125,17 @@ services:
     container_name: chat-service
     build:
       context: ./apps
-      dockerfile: chat-service/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        SERVICE_NAME: chat-service
+        PORT: 3006
     env_file:
       - .env
-    expose:
-      - "3006"
     depends_on:
-      - room-service
+      room-service:
+        condition: service_started
+      logstash:
+        condition: service_healthy
     networks:
       - transcendence
     environment:
@@ -162,7 +191,7 @@ services:
       - ./monitoring/grafana/data:/var/lib/grafana
       - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
       - ./monitoring/grafana/scripts/substitute-env.sh:/substitute-env.sh
-    entrypoint: ["/bin/sh", "/substitute-env.sh"]
+    entrypoint: [ "/bin/sh", "/substitute-env.sh" ]
     depends_on:
       - prometheus
     networks:
@@ -183,7 +212,7 @@ services:
     networks:
       - transcendence
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -199,6 +228,11 @@ services:
     depends_on:
       elasticsearch:
         condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9600/_node/stats" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - transcendence
   kibana:
