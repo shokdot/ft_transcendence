@@ -30,3 +30,31 @@ scrape_configs:
     static_configs:
       - targets:
           - "notification-service:3002"
+
+  # Game service
+  - job_name: "game-service"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - "game-service:3003"
+        
+  # Room service
+  - job_name: "room-service"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - "room-service:3004"
+      
+  # Stats service
+  - job_name: "stats-service"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - "stats-service:3005"
+
+  # Chat service
+  - job_name: "chat-service"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - "chat-service:3006"
