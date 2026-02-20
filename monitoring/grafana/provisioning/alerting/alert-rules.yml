@@ -4,11 +4,13 @@ groups:
   - orgId: 1
     name: service-alerts
     folder: Infrastructure
-    interval: 30s
+    interval: 1m
     rules:
-      - uid: service_down
+      # Auth Service
+      - uid: auth_service_down
         title: Auth Service is down
         condition: C
+        for: 1m
         data:
           - refId: A
             relativeTimeRange:
@@ -58,8 +60,367 @@ groups:
                   reducer:
                     type: last
                   type: query
-
+        labels:
+          severity: critical
         annotations:
           summary: "Auth Service is down"
           description: "The auth-service is not responding (up == 0)."
 
+      # User Service
+      - uid: user_service_down
+        title: User Service is down
+        condition: C
+        for: 1m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="user-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "User Service is down"
+          description: "The user-service is not responding (up == 0)."
+
+      # Notification Service
+      - uid: notification_service_down
+        title: Notification Service is down
+        condition: C
+        for: 1m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="notification-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "Notification Service is down"
+          description: "The notification-service is not responding (up == 0)."
+
+      # Game Service
+      - uid: game_service_down
+        title: Game Service is down
+        condition: C
+        for: 1m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="game-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "Game Service is down"
+          description: "The game-service is not responding (up == 0)."
+
+      # Room Service
+      - uid: room_service_down
+        title: Room Service is down
+        condition: C
+        for: 1m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="room-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "Room Service is down"
+          description: "The room-service is not responding (up == 0)."
+
+      # Stats Service
+      - uid: stats_service_down
+        title: Stats Service is down
+        condition: C
+        for: 1m
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="stats-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "Stats Service is down"
+          description: "The stats-service is not responding (up == 0)."
+
+      # Chat Service
+      - uid: chat_service_down
+        title: Chat Service is down
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: prometheus
+            model:
+              refId: A
+              intervalMs: 30000
+              maxDataPoints: 43200
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: 1 - up{job="chat-service"}
+          - refId: B
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: B
+              type: reduce
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              reducer: last
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: __expr__
+            model:
+              refId: C
+              type: threshold
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              conditions:
+                - evaluator:
+                    type: gte
+                    params:
+                      - 1
+                  operator:
+                    type: and
+                  reducer:
+                    type: last
+                  type: query
+        labels:
+          severity: critical
+        annotations:
+          summary: "Chat Service is down"
+          description: "The chat-service is not responding (up == 0)."
