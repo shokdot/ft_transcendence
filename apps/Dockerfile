@@ -24,7 +24,7 @@ WORKDIR /apps/${SERVICE_NAME}
 COPY ${SERVICE_NAME}/package*.json ./
 
 # RUN npm install before copying the rest of the source to leverage cache
-RUN npm install --no-audit --no-fund
+RUN npm install --no-audit --no-fund --ignore-scripts
 
 # Reuse core build (moved after npm install to keep service-specific layers smaller)
 COPY --from=core-builder /apps/core /apps/core
