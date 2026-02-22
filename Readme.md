@@ -7,7 +7,7 @@
 **ft_transcendence** is a full-stack, real-time multiplayer game platform focused on providing an engaging digital ping-pong experience. The platform allows users to play live matches, chat with other players, track their statistics, and manage their profiles in a robust microservices-based architecture.
 
 **Key Features:**
-- Pong game with multiple modes: local, vs AI, private room, and matchmaking
+- Pong game with multiple modes
 - Friend system: send/accept/decline friend requests, block users, and invite friends to a game
 - Secure user authentication and profile management (OAuth, 2FA)
 - Real-time chat system with direct messaging
