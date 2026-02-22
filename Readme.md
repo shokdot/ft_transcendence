@@ -100,8 +100,8 @@
 ## 📅 Project Management
 
 - **Task Organization:** The project was organized into weekly sprints. Tasks were divided based on domains (Frontend, Game Logic, Microservices).
-- **Tools Used:** We used **GitHub Projects (Issues and Kanban boards)** to track progress and assign tasks.
-- **Communication Channels:** **Discord** for daily communication and quick ad-hoc meetings. In-person stand-ups were held twice a week.
+- **Tools Used:** We used **Jira (Kanban boards)** to track progress and assign tasks.
+- **Communication Channels:** **Telegram** for daily communication and quick ad-hoc meetings. In-person stand-ups were held twice a week.
 
 ## 💻 Technical Stack
 
