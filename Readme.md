@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by [login1](https://profile.intra.42.fr/users/login1), [login2](https://profile.intra.42.fr/users/login2), [login3](https://profile.intra.42.fr/users/login3).*
+*This project has been created as part of the 42 curriculum by [healeksa](https://profile.intra.42.fr/users/healeksa), [etamazya](https://profile.intra.42.fr/users/etamazya), [login3](https://profile.intra.42.fr/users/login3).*
 
 # ft_transcendence: Surprise
 
@@ -93,8 +93,8 @@
 
 | Team Member | Assigned Role(s) | Responsibilities |
 | ----------- | ---------------- | ---------------- |
-| **[login1](https://profile.intra.42.fr/users/login1)** | Tech Lead / Developer | Overseeing microservices architecture, implementing Auth & User services. |
-| **[login2](https://profile.intra.42.fr/users/login2)** | PO / Fullstack Developer | Implementing the Game engine, frontend integration, and managing project milestones. |
+| **[healeksa](https://profile.intra.42.fr/users/healeksa)** | Tech Lead / Developer | Overseeing microservices architecture, implementing Auth & User services. |
+| **[etamazya](https://profile.intra.42.fr/users/etamazya)** | PO / Fullstack Developer | Implementing the Game engine, frontend integration, and managing project milestones. |
 | **[login3](https://profile.intra.42.fr/users/login3)** | PM / Developer | Developing the Chat service, handling DevOps (Docker, Prometheus), and managing tasks. |
 
 ## 📅 Project Management
@@ -132,6 +132,12 @@
 - **Next.js:** Provided a solid structure for building a robust SPA, with built-in optimizations and easy routing.
 - **Microservices:** A modular approach was chosen to allow independent scaling, easier debugging, and clear separation of concerns among team members.
 
+## 🏗 Architecture
+
+The diagram below shows the high-level microservices architecture, illustrating how the frontend, API gateway (NGINX), individual backend services, and supporting infrastructure (monitoring, logging) are connected.
+
+![Architecture](docs/Architecture.drawio.svg)
+
 ## 🗄 Database Schema
 
 Each microservice owns its isolated SQLite database (Database-per-service pattern). The full ERD is shown below; cross-service relationships are handled logically via UUIDs rather than enforced foreign keys.
@@ -142,36 +148,43 @@ Each microservice owns its isolated SQLite database (Database-per-service patter
 
 | Feature | Team Member(s) | Description |
 | ------- | -------------- | ----------- |
-| **User Authentication** | [login1](https://profile.intra.42.fr/users/login1) | Secure login/registration via standard credentials or 42 Intranet OAuth. |
-| **Two-Factor Authentication** | [login1](https://profile.intra.42.fr/users/login1) | Optional 2FA utilizing Google Authenticator compatibility. |
-| **Live Multiplayer Game** | [login2](https://profile.intra.42.fr/users/login2) | Pong with local, AI, private room, and matchmaking modes. |
-| **Chat functionality** | [login3](https://profile.intra.42.fr/users/login3) | Public/private channels, direct messaging, and blocking capabilities. |
-| **Live Notifications** | [login3](https://profile.intra.42.fr/users/login3) | Real-time alerts for game invites and friend requests. |
-| **User Profiles & Stats** | [login1](https://profile.intra.42.fr/users/login1), [login2](https://profile.intra.42.fr/users/login2) | Detailed match history, win/loss tracking, and profile page. |
+| **User Authentication** | [healeksa](https://profile.intra.42.fr/users/healeksa) | Secure login/registration via standard credentials or 42 Intranet OAuth. |
+| **Two-Factor Authentication** | [healeksa](https://profile.intra.42.fr/users/healeksa) | Optional 2FA utilizing Google Authenticator compatibility. |
+| **Advanced Permissions** | [healeksa](https://profile.intra.42.fr/users/healeksa) | Role-based management and access control throughout the platform. |
+| **Live Multiplayer Game** | [etamazya](https://profile.intra.42.fr/users/etamazya) | Pong with local, AI, private room, and matchmaking modes. |
+| **Game Customizations** | [etamazya](https://profile.intra.42.fr/users/etamazya) | Customizable maps, power-ups, and game settings supported by the AI. |
+| **Chat Functionality** | [login3](https://profile.intra.42.fr/users/login3) | Public/private channels, direct messaging, and blocking capabilities. |
+| **Live Notifications** | [login3](https://profile.intra.42.fr/users/login3) | Real-time WebSocket alerts for game invites and friend requests. |
+| **User Profiles & Stats** | [healeksa](https://profile.intra.42.fr/users/healeksa), [etamazya](https://profile.intra.42.fr/users/etamazya) | Detailed match history, win/loss tracking, and profile page. |
+| **Public API** | [healeksa](https://profile.intra.42.fr/users/healeksa) | Secured REST endpoints with API-key authentication and OpenAPI docs. |
+| **Microservices Backend** | [healeksa](https://profile.intra.42.fr/users/healeksa) | Distributed services (Auth, Chat, Game, etc.) behind an NGINX gateway. |
+| **DevOps & Observability** | [login3](https://profile.intra.42.fr/users/login3) | Comprehensive monitoring & logging using Prometheus, Grafana, and ELK stack. |
+
+
 
 ## 🧩 Modules
 
 | Module Name | Type / Points | Justification & Implementation | Team Member(s) |
 | ----------- | ------------- | ------------------------------ | -------------- |
-| **Use a Framework (Frontend + Backend)** | Major (2pts) | Frontend: **Next.js 15 + React 19** (SPA, file-based routing, built-in optimizations). Backend: **Fastify** (Node.js) across all microservices — high-performance, schema-validated, with a rich plugin ecosystem. Next.js counts as both since its frontend and backend capabilities are fully utilized. | [login1](https://profile.intra.42.fr/users/login1), [login2](https://profile.intra.42.fr/users/login2) |
-| **Real-Time Features (WebSockets)** | Major (2pts) | WebSockets are used across Chat, Game, and Notification services for live bidirectional communication — enabling real-time messaging, game state sync, and instant event delivery. Connection/disconnection is handled gracefully with reconnection logic on the frontend. | [login2](https://profile.intra.42.fr/users/login2), [login3](https://profile.intra.42.fr/users/login3) |
-| **User Interaction** | Major (2pts) | Users can interact via a real-time **chat system** (send/receive messages), view detailed **user profiles** (stats, avatar, match history), and manage a **friends system** (add/remove friends, view friends list, block users). | [login1](https://profile.intra.42.fr/users/login1), [login3](https://profile.intra.42.fr/users/login3) |
-| **Public API** | Major (2pts) | A secured public API with **API key authentication**, **rate limiting**, **Swagger/OpenAPI documentation**, and at least 5 endpoints (GET, POST, PUT, DELETE) exposing user stats, match history, leaderboard, profile info, and friendship data. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Standard User Management & Authentication** | Major (2pts) | Full user lifecycle: profile info updates, avatar upload (with default), friend system with online status, and a dedicated profile page displaying user information, stats, and match history. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Advanced Permissions System** | Major (2pts) | Full CRUD on users, roles management (admin, user, guest, moderator), and role-based views and actions throughout the platform. | [login1](https://profile.intra.42.fr/users/login1) |
-| **AI Opponent** | Major (2pts) | A challenging AI opponent that simulates human-like behavior (not perfect play) and can use any enabled game customization options. Implementation approach is explained and documented for evaluation. | [login2](https://profile.intra.42.fr/users/login2) |
-| **Web-Based Multiplayer Game** | Major (2pts) | A complete browser-based Pong game with clear rules, win/loss conditions, and live multiplayer support. Players can compete in real-time matches with a 2D game engine running server-side. | [login2](https://profile.intra.42.fr/users/login2) |
-| **Remote Players** | Major (2pts) | Two players on separate computers can play the same game in real-time. Network latency and disconnections are handled gracefully with reconnection logic and smooth UX during remote gameplay. | [login2](https://profile.intra.42.fr/users/login2) |
+| **Use a Framework (Frontend + Backend)** | Major (2pts) | Frontend: **Next.js 15 + React 19** (SPA, file-based routing, built-in optimizations). Backend: **Fastify** (Node.js) across all microservices — high-performance, schema-validated, with a rich plugin ecosystem. Next.js counts as both since its frontend and backend capabilities are fully utilized. | [healeksa](https://profile.intra.42.fr/users/healeksa), [etamazya](https://profile.intra.42.fr/users/etamazya) |
+| **Real-Time Features (WebSockets)** | Major (2pts) | WebSockets are used across Chat, Game, and Notification services for live bidirectional communication — enabling real-time messaging, game state sync, and instant event delivery. Connection/disconnection is handled gracefully with reconnection logic on the frontend. | [etamazya](https://profile.intra.42.fr/users/etamazya), [login3](https://profile.intra.42.fr/users/login3) |
+| **User Interaction** | Major (2pts) | Users can interact via a real-time **chat system** (send/receive messages), view detailed **user profiles** (stats, avatar, match history), and manage a **friends system** (add/remove friends, view friends list, block users). | [healeksa](https://profile.intra.42.fr/users/healeksa), [login3](https://profile.intra.42.fr/users/login3) |
+| **Public API** | Major (2pts) | A secured public API with **API key authentication**, **rate limiting**, **Swagger/OpenAPI documentation**, and at least 5 endpoints (GET, POST, PUT, DELETE) exposing user stats, match history, leaderboard, profile info, and friendship data. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Standard User Management & Authentication** | Major (2pts) | Full user lifecycle: profile info updates, avatar upload (with default), friend system with online status, and a dedicated profile page displaying user information, stats, and match history. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Advanced Permissions System** | Major (2pts) | Full CRUD on users, roles management (admin, user, guest, moderator), and role-based views and actions throughout the platform. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **AI Opponent** | Major (2pts) | A challenging AI opponent that simulates human-like behavior (not perfect play) and can use any enabled game customization options. Implementation approach is explained and documented for evaluation. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
+| **Web-Based Multiplayer Game** | Major (2pts) | A complete browser-based Pong game with clear rules, win/loss conditions, and live multiplayer support. Players can compete in real-time matches with a 2D game engine running server-side. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
+| **Remote Players** | Major (2pts) | Two players on separate computers can play the same game in real-time. Network latency and disconnections are handled gracefully with reconnection logic and smooth UX during remote gameplay. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
 | **Infrastructure for Log Management (ELK)** | Major (2pts) | Elasticsearch stores and indexes logs, Logstash collects and transforms them, and Kibana provides visualization dashboards for monitoring application behavior across all microservices. | [login3](https://profile.intra.42.fr/users/login3) |
 | **Monitoring System (Prometheus + Grafana)** | Major (2pts) | Prometheus collects metrics via configured exporters across all microservices. Custom Grafana dashboards visualize backend health, traffic, and performance. Alerting rules and secured access are configured. | [login3](https://profile.intra.42.fr/users/login3) |
-| **Backend as Microservices** | Major (2pts) | The backend is decomposed into loosely-coupled services (Auth, Chat, Game, Notification, Room, Stats, User), each with a single responsibility, communicating via REST APIs through an NGINX API gateway. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Remote Authentication (OAuth 2.0)** | Minor (1pt) | OAuth 2.0 integration with **42 Intranet** allowing users to log in using their existing 42 credentials. Token exchange and session management are handled securely. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Two-Factor Authentication (2FA)** | Minor (1pt) | TOTP-based 2FA implemented using **Speakeasy**, compatible with Google Authenticator. Users can enable/disable 2FA from their profile settings. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Game Statistics & Match History** | Minor (1pt) | Tracks wins, losses, ranking, and level per user. Displays full match history (1v1 results, dates, opponents), achievements, progression milestones, and a global leaderboard. | [login2](https://profile.intra.42.fr/users/login2) |
+| **Backend as Microservices** | Major (2pts) | The backend is decomposed into loosely-coupled services (Auth, Chat, Game, Notification, Room, Stats, User), each with a single responsibility, communicating via REST APIs through an NGINX API gateway. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Remote Authentication (OAuth 2.0)** | Minor (1pt) | OAuth 2.0 integration with **42 Intranet** allowing users to log in using their existing 42 credentials. Token exchange and session management are handled securely. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Two-Factor Authentication (2FA)** | Minor (1pt) | TOTP-based 2FA implemented using **Speakeasy**, compatible with Google Authenticator. Users can enable/disable 2FA from their profile settings. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Game Statistics & Match History** | Minor (1pt) | Tracks wins, losses, ranking, and level per user. Displays full match history (1v1 results, dates, opponents), achievements, progression milestones, and a global leaderboard. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
 | **Advanced Chat Features** | Minor (1pt) | Extends the base chat with: block users from messaging, invite users to games directly from chat, game/tournament notifications, access to user profiles from chat, chat history persistence, and typing indicators. | [login3](https://profile.intra.42.fr/users/login3) |
-| **Game Customization Options** | Minor (1pt) | Players can select power-ups, different maps or themes, and customizable game settings. Default options are always available. The AI opponent can utilize all customization options. | [login2](https://profile.intra.42.fr/users/login2) |
-| **Use an ORM** | Minor (1pt) | **Prisma ORM** is used across all microservices to manage SQLite databases — providing type-safe queries, schema migrations, and a clean data access layer without writing raw SQL. | [login1](https://profile.intra.42.fr/users/login1) |
-| **Support for Additional Browsers** | Minor (1pt) | Full compatibility with **Chrome**, **Firefox**, and **Safari**. All features tested and fixed per browser. Browser-specific limitations are documented. Consistent UI/UX is maintained across all supported browsers. | [login2](https://profile.intra.42.fr/users/login2) |
+| **Game Customization Options** | Minor (1pt) | Players can select power-ups, different maps or themes, and customizable game settings. Default options are always available. The AI opponent can utilize all customization options. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
+| **Use an ORM** | Minor (1pt) | **Prisma ORM** is used across all microservices to manage SQLite databases — providing type-safe queries, schema migrations, and a clean data access layer without writing raw SQL. | [healeksa](https://profile.intra.42.fr/users/healeksa) |
+| **Support for Additional Browsers** | Minor (1pt) | Full compatibility with **Chrome**, **Firefox**, and **Safari**. All features tested and fixed per browser. Browser-specific limitations are documented. Consistent UI/UX is maintained across all supported browsers. | [etamazya](https://profile.intra.42.fr/users/etamazya) |
 
 **Module Summary:**
 - 🟦 **Major modules:** 12 × 2pts = **24pts**
@@ -180,12 +193,12 @@ Each microservice owns its isolated SQLite database (Database-per-service patter
 
 ## 👤 Individual Contributions
 
-### [login1](https://profile.intra.42.fr/users/login1)
+### [healeksa](https://profile.intra.42.fr/users/healeksa)
 - **Contributions:** Architected the microservices pattern, implemented the API Gateway (NGINX), and fully developed the `auth-service` and `user-service`.
 - **Challenges:** Dealing with cross-origin requests (CORS) across multiple Docker containers and sharing authentication state securely.
 - **Solutions:** Implemented an API gateway to unify traffic and enforced strict JWT validation with HttpOnly cookies.
 
-### [login2](https://profile.intra.42.fr/users/login2)
+### [etamazya](https://profile.intra.42.fr/users/etamazya)
 - **Contributions:** Built the primary Next.js Frontend application, the game loop, and the physics engine inside the `game-service`.
 - **Challenges:** Ensuring the ball physics were perfectly synced between the server and both clients without stuttering.
 - **Solutions:** Implemented a client-side prediction algorithm combined with server-authoritative state reconciliation.
