@@ -2,6 +2,10 @@
 
 # ft_transcendence: Surprise
 
+<p align="center">
+  <img src="docs/logo.png" alt="ft_transcendence Logo" width="200" />
+</p>
+
 ## 📝 Description
 
 **ft_transcendence** is a full-stack, real-time multiplayer game platform focused on providing an engaging digital ping-pong experience. The platform allows users to play live matches, chat with other players, track their statistics, and manage their profiles in a robust microservices-based architecture.
