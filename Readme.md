@@ -211,3 +211,19 @@ Each microservice owns its isolated SQLite database (Database-per-service patter
 - **Contributions:** Set up the global Docker environments, implemented continuous monitoring via Grafana, and developed the `chat-service` and `notification-service`.
 - **Challenges:** Handling WebSocket connection drops in the chat and scaling the real-time event distribution.
 - **Solutions:** Utilized Fastify's native websocket plugins and created robust reconnection logic on the frontend.
+
+## 🚀 Future Improvements & Development
+
+- Redis
+- PostgreSQL
+- Monorepo
+- gRPC
+- RabbitMQ/Kafka
+- Refactor
+- NestJS
+- REST HATEOAS principles
+- Secret Management
+
+## 🤝 Contributing & Issues
+
+Found a bug or have a suggestion? Feel free to open an issue! We welcome feedback, ideas, and contributions to help improve this project.
