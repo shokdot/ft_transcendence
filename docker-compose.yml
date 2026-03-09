@@ -249,6 +249,21 @@ services:
     networks:
       - transcendence
 
+  elasticsearch-init:
+    container_name: elasticsearch-init
+    image: curlimages/curl:latest
+    user: root
+    volumes:
+      - ./logging/scripts/setup-ilm.sh:/setup-ilm.sh:ro
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    command: /bin/sh -c "apk add --no-cache bash && bash /setup-ilm.sh"
+    networks:
+      - transcendence
+
 networks:
   transcendence:
     driver: bridge

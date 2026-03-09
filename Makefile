@@ -30,8 +30,6 @@ re:
 prune:
 	docker system prune -a
 
-logging-setup:
-	ELASTICSEARCH_URL=http://localhost:9200 bash logging/scripts/setup-ilm.sh
 
 clean:
 	rm -rf apps/*/dist apps/*/data apps/*/node_modules

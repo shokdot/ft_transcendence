@@ -7,6 +7,6 @@ contactPoints:
       - uid: default-email
         type: email
         settings:
-          addresses: "henula09106@gmail.com"
+          addresses: "${GRAFANA_ALERT_EMAIL}"
           singleEmail: true
 
